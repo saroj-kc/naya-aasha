@@ -1,5 +1,59 @@
 ---
-import Base from '../../layouts/BaseLayout.astro'; import about from '../../content/pages/about.json'; import {getCollection} from 'astro:content';
+import Base from '../../layouts/BaseLayout.astro';
+import about from '../../content/pages/about.json';
+import {getCollection} from 'astro:content';
 const team=(await getCollection('team',({data})=>!data.draft)).sort((a,b)=>a.data.order-b.data.order);
+const placeholderRoles=about.emptyTeamRoles||[];
 ---
-<Base title={about.seoTitle} description={about.seoDescription}><section class="page-hero"><div class="wrap"><p class="breadcrumb"><a href="/">Home</a> / About us</p><p class="eyebrow">{about.eyebrow}</p><h1 class="display">A new hope, <em style="color:var(--green);font-weight:400">built together.</em></h1><p class="lead">{about.intro}</p></div></section><section class="section"><div class="wrap content-grid"><aside><p class="side-title">Why we exist</p></aside><div class="prose"><h2>{about.storyTitle}</h2><p>{about.story}</p><div class="mv-grid"><div class="mv-card"><span class="meta" style="color:#bcdcd3">Our mission</span><h3>What we do</h3><p>{about.mission}</p></div><div class="mv-card"><span class="meta">Our vision</span><h3>What we hope to see</h3><p>{about.vision}</p></div></div><p class="eyebrow">The principles that guide us</p><h2>Our values</h2><div class="values-grid">{about.values.map((v,i)=><article class="value-card"><span class="meta">{String(i+1).padStart(2,'0')}</span><h3>{v.title}</h3><p>{v.text}</p></article>)}</div></div></div></section>{team.length>0&&<section class="section section-tinted"><div class="wrap"><p class="eyebrow">Our people</p><h2 class="heading">Leadership & team</h2><div class="cards-3" style="margin-top:40px">{team.map(m=><article class="content-card"><div class="visual">{m.data.name[0]}</div><div class="body"><h3>{m.data.name}</h3><p>{m.data.role}</p></div></article>)}</div></div></section>}</Base>
+<Base title={about.seoTitle} description={about.seoDescription}>
+  <section class="page-hero">
+    <div class="wrap">
+      <p class="breadcrumb"><a href="/">Home</a> / About us</p>
+      <p class="eyebrow">{about.eyebrow}</p>
+      <h1 class="display">A new hope, <em style="color:var(--green);font-weight:400">built together.</em></h1>
+      <p class="lead">{about.intro}</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap content-grid">
+      <aside><p class="side-title">Why we exist</p></aside>
+      <div class="prose">
+        <h2>{about.storyTitle}</h2><p>{about.story}</p>
+        <div class="mv-grid">
+          <div class="mv-card"><span class="meta" style="color:#bcdcd3">Our mission</span><h3>What we do</h3><p>{about.mission}</p></div>
+          <div class="mv-card"><span class="meta">Our vision</span><h3>What we hope to see</h3><p>{about.vision}</p></div>
+        </div>
+        <p class="eyebrow">The principles that guide us</p><h2>Our values</h2>
+        <div class="values-grid">{about.values.map((v,i)=><article class="value-card"><span class="meta">{String(i+1).padStart(2,'0')}</span><h3>{v.title}</h3><p>{v.text}</p></article>)}</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section founder-section">
+    <div class="wrap founder-grid">
+      <div class="founder-portrait" aria-hidden="true">न</div>
+      <div>
+        <p class="eyebrow">Leadership</p>
+        <h2 class="heading">{about.founderMessageTitle}</h2>
+        <blockquote>“{about.founderMessage}”</blockquote>
+        <p class="founder-signature"><strong>{about.founderName}</strong><span>{about.founderRole}</span></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-tinted">
+    <div class="wrap">
+      <p class="eyebrow">Our people</p><h2 class="heading">Our Team</h2>
+      <p class="lead">Meet the people who guide Naya Aasha’s work with care, accountability, and respect for the communities we serve.</p>
+      <div class="cards-3 team-grid">
+        {team.length>0 ? team.map(m=><article class="content-card"><div class="visual">{m.data.photo?<img src={m.data.photo} alt={m.data.name}/>:m.data.name[0]}</div><div class="body"><h3>{m.data.name}</h3><p>{m.data.role}</p></div></article>) : placeholderRoles.map(role=><article class="content-card placeholder-card"><div class="visual" aria-hidden="true">न</div><div class="body"><h3>{role}</h3><p>Profile coming soon</p></div></article>)}
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+.founder-section{background:var(--green-dark);color:#fff}.founder-grid{display:grid;grid-template-columns:280px 1fr;gap:70px;align-items:center}.founder-portrait{aspect-ratio:1;border-radius:50%;display:grid;place-items:center;background:var(--orange);color:var(--green-dark);font-family:var(--serif);font-size:110px;box-shadow:0 0 0 14px rgba(255,255,255,.08)}blockquote{margin:28px 0;font-family:var(--serif);font-size:clamp(24px,3vw,38px);line-height:1.4;color:#eef8f4}.founder-signature{display:grid}.founder-signature strong{font-size:18px}.founder-signature span{color:#bcdcd3}.team-grid{margin-top:40px}.team-grid .visual img{width:100%;height:100%;object-fit:cover}.placeholder-card .visual{background:linear-gradient(145deg,var(--mint),var(--orange-soft));color:var(--green)}
+@media(max-width:760px){.founder-grid{grid-template-columns:1fr;gap:40px}.founder-portrait{width:180px}.team-grid{grid-template-columns:1fr}}
+</style>
