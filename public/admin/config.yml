@@ -2,7 +2,7 @@
 # Replace YOUR-GITHUB-USERNAME after creating the GitHub repository.
 backend:
   name: github
-  repo: repo: saroj-kc/naya-aasha
+  repo: saroj-kc/naya-aasha
   branch: main
   site_domain: nayaaasha.org.np
   base_url: https://nayaaasha.org.np
