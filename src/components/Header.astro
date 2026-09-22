@@ -41,6 +41,7 @@ window.googleTranslateElementInit=()=>{
     includedLanguages:'en,ne,fr,es,zh-CN,de',
     autoDisplay:false
   },'google_translate_element');
+  setTimeout(()=>syncGoogleSelector(true),300);
 };
 const supportedLanguages=['en','ne','fr','es','zh-CN','de'];
 const translationCookie=()=>{
@@ -49,12 +50,22 @@ const translationCookie=()=>{
 };
 const languageSelect=document.querySelector('[data-language-select]');
 if(languageSelect) languageSelect.value=translationCookie();
+const syncGoogleSelector=(force=false,attempt=0)=>{
+  const selector=document.querySelector('.goog-te-combo');
+  const language=translationCookie();
+  if(selector){
+    if(force||selector.value!==language){
+      selector.value=language;
+      selector.dispatchEvent(new Event('change'));
+    }
+    return;
+  }
+  if(attempt<40)setTimeout(()=>syncGoogleSelector(force,attempt+1),250);
+};
 languageSelect?.addEventListener('change',()=>{
   const language=languageSelect.value;
   document.cookie=`googtrans=/en/${language}; path=/; max-age=31536000; SameSite=Lax`;
-  const selector=document.querySelector('.goog-te-combo');
-  if(selector){selector.value=language;selector.dispatchEvent(new Event('change'));}
-  else location.reload();
+  syncGoogleSelector(true);
 });
 // Keep Google's old translation toolbar hidden; language choice remains in our header.
 const hideGoogleToolbar=()=>{
