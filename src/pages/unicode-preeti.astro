@@ -1,0 +1,80 @@
+---
+import Base from '../../layouts/BaseLayout.astro';
+---
+<Base title="Unicode ↔ Preeti Converter | Naya Aasha" description="A free browser-based Nepali Unicode and Preeti text converter from Naya Aasha.">
+  <section class="page-hero tool-hero">
+    <div class="wrap">
+      <p class="breadcrumb"><a href="/">Home</a> / Unicode ↔ Preeti Converter</p>
+      <p class="eyebrow">Free Nepali text utility</p>
+      <h1 class="display">Unicode <em>↔</em> Preeti</h1>
+      <p class="lead">Convert Nepali text in either direction directly in your browser. Your text is processed on your device and is not uploaded.</p>
+    </div>
+  </section>
+
+  <section class="section converter-section">
+    <div class="wrap converter-shell notranslate" translate="no">
+      <div class="mode-tabs" role="group" aria-label="Choose conversion direction">
+        <button type="button" class="active" data-mode="preeti-unicode">Preeti → Unicode</button>
+        <button type="button" data-mode="unicode-preeti">Unicode → Preeti</button>
+      </div>
+      <div class="converter-grid">
+        <div>
+          <label for="converter-input"><strong id="input-label">Preeti input</strong><span>Type or paste text below</span></label>
+          <textarea id="converter-input" spellcheck="false" placeholder="Paste Preeti text here…"></textarea>
+        </div>
+        <button type="button" class="swap-button" id="swap-mode" aria-label="Switch conversion direction">⇄</button>
+        <div>
+          <label for="converter-output"><strong id="output-label">Unicode output</strong><span>Converted text appears automatically</span></label>
+          <textarea id="converter-output" readonly placeholder="Converted text will appear here…"></textarea>
+        </div>
+      </div>
+      <div class="tool-actions">
+        <button type="button" class="btn" id="copy-output">Copy result</button>
+        <button type="button" class="btn btn-secondary" id="clear-converter">Clear</button>
+        <span id="converter-status" role="status" aria-live="polite"></span>
+      </div>
+      <div class="notice tool-note"><strong>Please verify important documents.</strong> Preeti is a legacy font encoding, and complex conjuncts or unusual symbols may require a final manual check. When using Preeti output in desktop software, apply the Preeti font to the copied text.</div>
+    </div>
+  </section>
+</Base>
+
+<script is:inline>
+const preetiMap={
+'1':'१','2':'२','3':'३','4':'४','5':'५','6':'६','7':'७','8':'८','9':'९','0':'०','-':'(', '=':'.',
+'!':'ज्ञ','@':'द्द','#':'घ','$':'द्ध','%':'छ','^':'ट','&':'ठ','*':'ड','(':'ढ',')':'ण','_':')','+':'ं',
+'a':'ब','b':'द','c':'अ','d':'म','e':'भ','f':'ा','g':'न','h':'ज','i':'ष','j':'व','k':'प','l':'ि','m':'ु','n':'ल','o':'य','p':'उ','q':'त्र','r':'च','s':'क','t':'त','u':'ग','v':'ख','w':'ध','x':'ह','y':'थ','z':'श',
+'A':'ब्','B':'द्य','C':'ऋ','D':'म्','E':'भ्','F':'ँ','G':'न्','H':'झ','I':'क्ष','J':'व्','K':'फ्','L':'ी','M':'ू','N':'ल्','O':'इ','P':'ए','Q':'त्त','R':'द्ध','S':'क्','T':'त्','U':'ग्','V':'ख्','W':'ध्','X':'ह्','Y':'थ्','Z':'श्',
+'[':'ृ','{':'ई',']':'े','}':'ै',';':'स',':':'स्',"'":'ु','"':'ू',',':',','<':'?','.':'।','>':'श्र','/':'र','?':'रु','\\':'्','|':'्र','ª':'ङ'
+};
+const unicodeMap={
+'ज्ञ':'!','द्द':'@','द्ध':'$','छ':'%','त्र':'q','क्ष':'I','श्र':'>','त्त':'Q','द्य':'B','रु':'?','ई':'{',
+'१':'1','२':'2','३':'3','४':'4','५':'5','६':'6','७':'7','८':'8','९':'9','०':'0','ट':'^','ठ':'&','ड':'*','ढ':'(','ण':')','घ':'#','ङ':'ª',
+'क':'s','ख':'v','ग':'u','च':'r','ज':'h','झ':'H','त':'t','थ':'y','द':'b','ध':'w','न':'g','प':'k','फ':'K','ब':'a','भ':'e','म':'d','य':'o','र':'/','ल':'n','व':'j','श':'z','ष':'i','स':';','ह':'x','अ':'c','इ':'O','उ':'p','ए':'P','ऋ':'C',
+'ा':'f','ि':'l','ी':'L','ु':"'",'ू':'"','ृ':'[','े':']','ै':'}','ं':'+','ँ':'F','्':'\\','।':'.'
+};
+const input=document.querySelector('#converter-input'),output=document.querySelector('#converter-output'),status=document.querySelector('#converter-status');
+let mode='preeti-unicode';
+function preetiToUnicode(text){
+ let result=[...text].map(ch=>preetiMap[ch]??ch).join('');
+ result=result.replace(/ि([क-ह](?:्[क-ह])*)/g,'$1ि').replace(/ाे/g,'ो').replace(/ाै/g,'ौ').replace(/अा/g,'आ');
+ return result;
+}
+function unicodeToPreeti(text){
+ text=text.replace(/([क-ह](?:्[क-ह])*)ि/g,'ि$1');
+ const keys=Object.keys(unicodeMap).sort((a,b)=>b.length-a.length);let out='';
+ for(let i=0;i<text.length;){let found='';for(const key of keys){if(text.startsWith(key,i)){found=key;break}}if(found){out+=unicodeMap[found];i+=found.length}else{out+=text[i++];}}
+ return out;
+}
+function convert(){output.value=mode==='preeti-unicode'?preetiToUnicode(input.value):unicodeToPreeti(input.value)}
+function setMode(next){mode=next;document.querySelectorAll('[data-mode]').forEach(b=>b.classList.toggle('active',b.dataset.mode===mode));document.querySelector('#input-label').textContent=mode==='preeti-unicode'?'Preeti input':'Unicode input';document.querySelector('#output-label').textContent=mode==='preeti-unicode'?'Unicode output':'Preeti output';input.placeholder=mode==='preeti-unicode'?'Paste Preeti text here…':'नेपाली युनिकोड यहाँ लेख्नुहोस्…';input.value='';output.value='';status.textContent=''}
+document.querySelectorAll('[data-mode]').forEach(b=>b.addEventListener('click',()=>setMode(b.dataset.mode)));
+document.querySelector('#swap-mode').addEventListener('click',()=>setMode(mode==='preeti-unicode'?'unicode-preeti':'preeti-unicode'));
+input.addEventListener('input',convert);
+document.querySelector('#clear-converter').addEventListener('click',()=>{input.value='';output.value='';status.textContent='';input.focus()});
+document.querySelector('#copy-output').addEventListener('click',async()=>{if(!output.value)return;await navigator.clipboard.writeText(output.value);status.textContent='Copied to clipboard';setTimeout(()=>status.textContent='',2200)});
+</script>
+
+<style>
+.tool-hero .display em{color:var(--orange);font-weight:400}.converter-section{background:var(--cream)}.converter-shell{padding:38px;background:#fff;border:1px solid var(--line);border-radius:26px;box-shadow:var(--shadow)}.mode-tabs{display:inline-flex;padding:5px;background:var(--mint);border-radius:999px;margin-bottom:30px}.mode-tabs button{border:0;background:transparent;padding:11px 19px;border-radius:999px;font-weight:800;color:var(--green-dark);cursor:pointer}.mode-tabs button.active{background:var(--green);color:#fff}.converter-grid{display:grid;grid-template-columns:1fr 54px 1fr;gap:18px;align-items:center}.converter-grid label{display:grid;margin-bottom:10px}.converter-grid label span{font-size:12px;color:var(--muted)}.converter-grid textarea{width:100%;min-height:300px;resize:vertical;border:1px solid #abc1bc;border-radius:14px;padding:18px;font:18px/1.7 var(--sans);color:var(--ink)}.converter-grid textarea:focus{outline:3px solid rgba(243,167,46,.3);border-color:var(--orange)}.swap-button{width:48px;height:48px;border:0;border-radius:50%;background:var(--orange);color:var(--green-dark);font-size:25px;cursor:pointer}.tool-actions{display:flex;align-items:center;gap:12px;margin-top:22px}.tool-actions #converter-status{color:var(--green);font-weight:750;font-size:13px}.tool-note{margin-top:28px}.tool-note strong{display:block}.converter-shell .btn{cursor:pointer}
+@media(max-width:760px){.converter-shell{padding:22px}.converter-grid{grid-template-columns:1fr}.swap-button{transform:rotate(90deg);justify-self:center}.converter-grid textarea{min-height:220px}.tool-actions{flex-wrap:wrap}}
+</style>
