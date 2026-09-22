@@ -13,11 +13,17 @@ const nav=[['About','/about/'],['Programs','/programs/'],['Impact','/impact/'],[
     <button class="menu-btn" aria-expanded="false" aria-controls="primary-nav"><span></span><span></span><span></span><b class="sr-only">Menu</b></button>
     <nav id="primary-nav" aria-label="Primary navigation">
       {nav.map(([label,url])=><a class:list={{active:path.startsWith(url)}} href={url}>{label}</a>)}
-      <div class="language-switcher notranslate" translate="no" aria-label="Choose website language">
-        <button type="button" data-language="en" aria-label="View website in English">ENG</button>
-        <span aria-hidden="true">|</span>
-        <button type="button" data-language="ne" aria-label="Translate website into Nepali">नेपाली</button>
-      </div>
+      <label class="language-switcher notranslate" translate="no">
+        <span class="sr-only">Choose website language</span>
+        <select data-language-select aria-label="Choose website language">
+          <option value="en">English</option>
+          <option value="ne">नेपाली</option>
+          <option value="fr">Français</option>
+          <option value="es">Español</option>
+          <option value="zh-CN">中文</option>
+          <option value="de">Deutsch</option>
+        </select>
+      </label>
       <div id="google_translate_element" class="translation-engine" aria-hidden="true"></div>
       <a class="btn btn-small" href="/donate/">Donate</a>
     </nav>
@@ -31,33 +37,45 @@ btn?.addEventListener('click',()=>{const open=btn.getAttribute('aria-expanded')=
 window.googleTranslateElementInit=()=>{
   new google.translate.TranslateElement({
     pageLanguage:'en',
-    includedLanguages:'en,ne',
+    includedLanguages:'en,ne,fr,es,zh-CN,de',
     autoDisplay:false
   },'google_translate_element');
 };
-const translationCookie=()=>decodeURIComponent(document.cookie).match(/googtrans=\/en\/(en|ne)/)?.[1]||'en';
-const markLanguage=()=>document.querySelectorAll('[data-language]').forEach(el=>{
-  const active=el.dataset.language===translationCookie();
-  el.classList.toggle('active',active);
-  el.setAttribute('aria-pressed',String(active));
-});
-markLanguage();
-document.querySelectorAll('[data-language]').forEach(el=>el.addEventListener('click',()=>{
-  const language=el.dataset.language;
+const supportedLanguages=['en','ne','fr','es','zh-CN','de'];
+const translationCookie=()=>{
+  const match=decodeURIComponent(document.cookie).match(/googtrans=\/en\/([^;]+)/);
+  return match&&supportedLanguages.includes(match[1])?match[1]:'en';
+};
+const languageSelect=document.querySelector('[data-language-select]');
+if(languageSelect) languageSelect.value=translationCookie();
+languageSelect?.addEventListener('change',()=>{
+  const language=languageSelect.value;
   document.cookie=`googtrans=/en/${language}; path=/; max-age=31536000; SameSite=Lax`;
   const selector=document.querySelector('.goog-te-combo');
   if(selector){selector.value=language;selector.dispatchEvent(new Event('change'));}
   else location.reload();
-}));
+});
+// Keep Google's old translation toolbar hidden; language choice remains in our header.
+const hideGoogleToolbar=()=>{
+  document.documentElement.style.setProperty('margin-top','0px','important');
+  document.body.style.setProperty('top','0px','important');
+  document.querySelectorAll('iframe.goog-te-banner-frame, iframe.skiptranslate, iframe.VIpgJd-ZVi9od-ORHb-OEVmcd').forEach(frame=>{
+    frame.style.setProperty('display','none','important');
+    frame.style.setProperty('height','0','important');
+  });
+};
+hideGoogleToolbar();
+new MutationObserver(hideGoogleToolbar).observe(document.documentElement,{childList:true,subtree:true});
+let toolbarChecks=0;const toolbarTimer=setInterval(()=>{hideGoogleToolbar();if(++toolbarChecks>20)clearInterval(toolbarTimer)},500);
 </script>
 <script is:inline async src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 <style>
-.language-switcher{display:flex;align-items:center;gap:5px;padding:5px 8px;border:1px solid var(--line);border-radius:999px;color:var(--muted);font-size:11px;font-weight:800;letter-spacing:.04em;white-space:nowrap}
-.language-switcher button{border:0;background:transparent;color:inherit;font:inherit;padding:3px 4px;cursor:pointer;border-radius:999px}
-.language-switcher button:hover,.language-switcher button.active{color:var(--green-dark);background:var(--mint)}
-.language-switcher button:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.language-switcher{display:flex;align-items:center;border:1px solid var(--line);border-radius:999px;background:#fff;white-space:nowrap}
+.language-switcher select{max-width:108px;border:0;background:transparent;color:var(--green-dark);font:inherit;font-size:11px;font-weight:800;padding:8px 25px 8px 10px;cursor:pointer;border-radius:999px}
+.language-switcher select:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
 .translation-engine{position:absolute!important;width:1px!important;height:1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important}
-:global(.goog-te-banner-frame.skiptranslate),:global(.goog-te-gadget-icon){display:none!important}
-:global(body){top:0!important}
+:global(.goog-te-banner-frame.skiptranslate),:global(iframe.goog-te-banner-frame),:global(iframe.skiptranslate),:global(iframe.VIpgJd-ZVi9od-ORHb-OEVmcd),:global(.goog-te-gadget-icon){display:none!important;height:0!important;visibility:hidden!important}
+:global(html){margin-top:0!important}
+:global(body){top:0!important;margin-top:0!important}
 @media(max-width:900px){.language-switcher{align-self:flex-start;margin:14px 0}}
 </style>
