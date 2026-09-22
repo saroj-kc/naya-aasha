@@ -1,0 +1,19 @@
+{
+  "seoTitle":"About Us | Naya Aasha",
+  "seoDescription":"Learn about Naya Aasha's story, mission, vision, values, and community-centered approach.",
+  "eyebrow":"Who we are",
+  "title":"A new hope, built together.",
+  "intro":"Naya Aasha is a nonprofit initiative committed to supporting children, people living with HIV, low-income families, and underserved communities in Nepal.",
+  "storyTitle":"Our story",
+  "story":"Naya Aasha was created from a simple belief: difficult circumstances should never decide the limits of a person’s future. We bring people, skills, and resources together to help communities address urgent needs while building pathways toward long-term independence.",
+  "mission":"To empower children, people living with HIV, and underserved communities by improving access to education, health support, essential resources, and sustainable opportunities.",
+  "vision":"A compassionate and inclusive society where every person can live with dignity, hope, and equal opportunity, regardless of economic condition, health status, identity, or background.",
+  "values":[
+    {"title":"Dignity","text":"We respect every person’s worth, privacy, rights, and choices."},
+    {"title":"Compassion","text":"We listen with empathy and respond with practical care."},
+    {"title":"Inclusion","text":"We serve without discrimination and work to remove barriers."},
+    {"title":"Empowerment","text":"We support people to build skills, confidence, and independence."},
+    {"title":"Transparency","text":"We communicate openly about our decisions, resources, and results."},
+    {"title":"Collaboration","text":"We create lasting change by working with communities and partners."}
+  ]
+}

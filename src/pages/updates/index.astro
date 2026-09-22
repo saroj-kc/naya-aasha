@@ -1,0 +1,5 @@
+---
+import Base from '../../layouts/BaseLayout.astro'; import {getCollection,render} from 'astro:content';
+const updates=(await getCollection('updates',({data})=>!data.draft)).sort((a,b)=>+b.data.date-+a.data.date); const items=await Promise.all(updates.map(async u=>({u,Content:(await render(u)).Content})));
+---
+<Base title="News & Updates | Naya Aasha" description="Latest news, notices, and program updates from Naya Aasha."><section class="page-hero"><div class="wrap"><p class="breadcrumb"><a href="/">Home</a> / Updates</p><p class="eyebrow">News & updates</p><h1 class="display">Follow the work <em style="color:var(--green);font-weight:400">as it grows.</em></h1><p class="lead">Program notices, organizational news, opportunities, and field updates.</p></div></section><section class="section"><div class="wrap cards-3">{items.map(({u,Content})=><article class="content-card"><div class="visual">न</div><div class="body"><span class="meta">{u.data.category} · {u.data.date.toLocaleDateString('en-NP')}</span><h2>{u.data.title}</h2><p>{u.data.excerpt}</p><div class="prose"><Content/></div></div></article>)}</div></section></Base>

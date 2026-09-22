@@ -1,0 +1,13 @@
+---
+import site from '../content/pages/site.json';
+const year=new Date().getFullYear();
+---
+<footer class="footer">
+ <div class="wrap footer-grid">
+  <div><a class="brand footer-brand" href="/"><span class="mini-mark">न</span><span><strong>{site.organizationName}</strong><small>{site.tagline}</small></span></a><p>Supporting education, health, dignity, and opportunity through practical, community-led action.</p></div>
+  <div><h2>Explore</h2><a href="/about/">About us</a><a href="/programs/">Our programs</a><a href="/impact/">Stories & impact</a><a href="/updates/">News & updates</a></div>
+  <div><h2>Take action</h2><a href="/get-involved/">Volunteer or partner</a><a href="/donate/">Donate</a><a href="/contact/">Request information</a><a href="/transparency/">Transparency</a></div>
+  <div><h2>Contact</h2><p>{site.address}<br/><a href={`mailto:${site.email}`}>{site.email}</a><br/><a href={`tel:${site.phone.replace(/[^+\d]/g,'')}`}>{site.phone}</a></p></div>
+ </div>
+ <div class="wrap footer-bottom"><span>© {year} Naya Aasha. All rights reserved.</span><span><a href="/privacy/">Privacy</a><a href="/safeguarding/">Safeguarding</a><a href="/admin/">Staff login</a></span></div>
+</footer>

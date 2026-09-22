@@ -1,0 +1,228 @@
+# Naya Aasha full-site Decap CMS
+# Replace YOUR-GITHUB-USERNAME after creating the GitHub repository.
+backend:
+  name: github
+  repo: YOUR-GITHUB-USERNAME/naya-aasha
+  branch: main
+  site_domain: nayaaasha.org.np
+  base_url: https://nayaaasha.org.np
+  auth_endpoint: api/auth
+  auth_scope: repo
+
+local_backend: true
+media_folder: public/uploads
+public_folder: /uploads
+publish_mode: editorial_workflow
+editor:
+  preview: true
+slug:
+  encoding: unicode
+  clean_accents: true
+  sanitize_replacement: '-'
+
+collections:
+  - name: website_settings
+    label: Website settings
+    files:
+      - name: identity_contact_donations
+        label: Identity, contact & donations
+        file: src/content/pages/site.json
+        format: json
+        fields:
+          - {label: Organization name, name: organizationName, widget: string}
+          - {label: Tagline, name: tagline, widget: string}
+          - {label: Registration number/status, name: registrationNumber, widget: string}
+          - {label: Public email, name: email, widget: string}
+          - {label: Phone, name: phone, widget: string}
+          - {label: WhatsApp, name: whatsapp, widget: string, required: false}
+          - {label: Address, name: address, widget: text}
+          - {label: Facebook URL, name: facebook, widget: string, required: false}
+          - {label: Instagram URL, name: instagram, widget: string, required: false}
+          - {label: YouTube URL, name: youtube, widget: string, required: false}
+          - {label: Enable published donation details, name: donationEnabled, widget: boolean, default: false, hint: Enable only after every account detail is formally verified.}
+          - {label: Donation notice, name: donationNotice, widget: text}
+          - {label: Bank name, name: bankName, widget: string}
+          - {label: Account name, name: accountName, widget: string}
+          - {label: Account number, name: accountNumber, widget: string}
+          - {label: eSewa ID, name: esewaId, widget: string, required: false}
+          - {label: Khalti ID, name: khaltiId, widget: string, required: false}
+
+  - name: website_pages
+    label: Website pages
+    files:
+      - name: homepage
+        label: Homepage
+        file: src/content/pages/home.json
+        format: json
+        fields:
+          - {label: SEO title, name: seoTitle, widget: string}
+          - {label: SEO description, name: seoDescription, widget: text}
+          - {label: Hero eyebrow, name: eyebrow, widget: string}
+          - {label: Hero title, name: heroTitle, widget: string}
+          - {label: Hero introduction, name: heroText, widget: text}
+          - {label: Main button label, name: primaryLabel, widget: string}
+          - {label: Main button URL, name: primaryUrl, widget: string}
+          - {label: Second button label, name: secondaryLabel, widget: string}
+          - {label: Second button URL, name: secondaryUrl, widget: string}
+          - {label: About eyebrow, name: aboutEyebrow, widget: string}
+          - {label: About heading, name: aboutTitle, widget: string}
+          - {label: About summary, name: aboutText, widget: text}
+          - {label: Programs heading, name: programsTitle, widget: string}
+          - {label: Stories heading, name: storiesTitle, widget: string}
+          - {label: Call-to-action heading, name: ctaTitle, widget: string}
+          - {label: Call-to-action text, name: ctaText, widget: text}
+      - name: about
+        label: About, mission, vision & values
+        file: src/content/pages/about.json
+        format: json
+        fields:
+          - {label: SEO title, name: seoTitle, widget: string}
+          - {label: SEO description, name: seoDescription, widget: text}
+          - {label: Eyebrow, name: eyebrow, widget: string}
+          - {label: Main title, name: title, widget: string}
+          - {label: Introduction, name: intro, widget: text}
+          - {label: Story heading, name: storyTitle, widget: string}
+          - {label: Our story, name: story, widget: text}
+          - {label: Mission, name: mission, widget: text}
+          - {label: Vision, name: vision, widget: text}
+          - label: Values
+            name: values
+            widget: list
+            min: 3
+            fields:
+              - {label: Value, name: title, widget: string}
+              - {label: Explanation, name: text, widget: text}
+      - name: get_involved
+        label: Get involved page
+        file: src/content/pages/get-involved.json
+        format: json
+        fields:
+          - {label: SEO title, name: seoTitle, widget: string}
+          - {label: SEO description, name: seoDescription, widget: text}
+          - {label: Eyebrow, name: eyebrow, widget: string}
+          - {label: Title, name: title, widget: string}
+          - {label: Introduction, name: intro, widget: text}
+          - label: Ways to help
+            name: options
+            widget: list
+            fields:
+              - {label: Title, name: title, widget: string}
+              - {label: Description, name: text, widget: text}
+              - {label: Button label, name: button, widget: string}
+      - name: contact
+        label: Contact page & form
+        file: src/content/pages/contact.json
+        format: json
+        fields:
+          - {label: SEO title, name: seoTitle, widget: string}
+          - {label: SEO description, name: seoDescription, widget: text}
+          - {label: Eyebrow, name: eyebrow, widget: string}
+          - {label: Title, name: title, widget: string}
+          - {label: Introduction, name: intro, widget: text}
+          - {label: Form submission endpoint, name: formEndpoint, widget: string, required: false, hint: Add the endpoint from a free form provider after setup.}
+          - {label: Success message, name: successMessage, widget: string}
+          - {label: Support request notice, name: supportNotice, widget: text}
+      - name: policies
+        label: Privacy & safeguarding summaries
+        file: src/content/pages/policies.json
+        format: json
+        fields:
+          - {label: Privacy title, name: privacyTitle, widget: string}
+          - {label: Privacy summary, name: privacyText, widget: text}
+          - {label: Safeguarding title, name: safeguardingTitle, widget: string}
+          - {label: Safeguarding commitment, name: safeguardingText, widget: text}
+          - {label: Safeguarding/complaints email, name: complaintsEmail, widget: string}
+
+  - name: programs
+    label: Programs
+    label_singular: Program
+    folder: src/content/programs
+    create: true
+    extension: md
+    format: frontmatter
+    slug: '{{slug}}'
+    summary: '{{title}}'
+    fields:
+      - {label: Keep as draft, name: draft, widget: boolean, default: true}
+      - {label: Program name, name: title, widget: string}
+      - {label: Short summary, name: summary, widget: text}
+      - label: Icon
+        name: icon
+        widget: select
+        options: [{label: Education/book, value: book},{label: Care/heart, value: care},{label: Family/home, value: home},{label: Health, value: health},{label: General/heart, value: heart}]
+      - {label: Display order, name: order, widget: number, value_type: int, min: 1}
+      - {label: Show on homepage, name: featured, widget: boolean, default: true}
+      - {label: Types of support, name: supportItems, widget: list, field: {label: Item, name: item, widget: string}}
+      - {label: Full program description, name: body, widget: markdown}
+
+  - name: stories
+    label: Impact stories
+    label_singular: Impact story
+    folder: src/content/stories
+    create: true
+    extension: md
+    format: frontmatter
+    slug: '{{slug}}'
+    summary: '{{title}} — {{date}}'
+    fields:
+      - {label: Keep as draft, name: draft, widget: boolean, default: true, hint: Keep private until facts and consent are verified.}
+      - {label: Story title, name: title, widget: string}
+      - {label: Short excerpt, name: excerpt, widget: text}
+      - {label: Date, name: date, widget: datetime, format: YYYY-MM-DD, date_format: YYYY-MM-DD, time_format: false}
+      - {label: Cover image, name: image, widget: image, required: false, hint: Upload only with appropriate informed consent.}
+      - {label: Feature on homepage, name: featured, widget: boolean, default: false}
+      - {label: Person/display name, name: personName, widget: string, required: false, hint: Use a changed name when privacy requires it.}
+      - {label: General location, name: location, widget: string, required: false, hint: Avoid precise locations when they could identify a person at risk.}
+      - {label: Story, name: body, widget: markdown}
+
+  - name: updates
+    label: News & updates
+    label_singular: Update
+    folder: src/content/updates
+    create: true
+    extension: md
+    format: frontmatter
+    slug: '{{slug}}'
+    summary: '{{title}} — {{date}}'
+    fields:
+      - {label: Keep as draft, name: draft, widget: boolean, default: true}
+      - {label: Title, name: title, widget: string}
+      - {label: Short excerpt, name: excerpt, widget: text}
+      - {label: Date, name: date, widget: datetime, format: YYYY-MM-DD, date_format: YYYY-MM-DD, time_format: false}
+      - {label: Category, name: category, widget: select, options: [Organization update, Program update, Event, Notice, Opportunity]}
+      - {label: Cover image, name: image, widget: image, required: false}
+      - {label: Full update, name: body, widget: markdown}
+
+  - name: team
+    label: Team & leadership
+    label_singular: Team member
+    folder: src/content/team
+    create: true
+    extension: md
+    format: frontmatter
+    slug: '{{slug}}'
+    summary: '{{name}} — {{role}}'
+    fields:
+      - {label: Keep as draft, name: draft, widget: boolean, default: true}
+      - {label: Name, name: name, widget: string}
+      - {label: Role, name: role, widget: string}
+      - {label: Photo, name: photo, widget: image, required: false}
+      - {label: Display order, name: order, widget: number, value_type: int, min: 1}
+      - {label: Biography, name: body, widget: markdown, required: false}
+
+  - name: reports
+    label: Reports & documents
+    label_singular: Report
+    folder: src/content/reports
+    create: true
+    extension: md
+    format: frontmatter
+    slug: '{{slug}}'
+    summary: '{{title}} — {{year}}'
+    fields:
+      - {label: Keep as draft, name: draft, widget: boolean, default: true}
+      - {label: Document title, name: title, widget: string}
+      - {label: Year, name: year, widget: number, value_type: int}
+      - {label: Type, name: type, widget: select, options: [Annual report, Audited financial statement, Program report, Registration document, Policy, Other]}
+      - {label: PDF/document, name: file, widget: file, required: false}
+      - {label: Notes, name: body, widget: markdown, required: false}
