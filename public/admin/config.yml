@@ -1,5 +1,4 @@
 # Naya Aasha full-site Decap CMS
-# Replace YOUR-GITHUB-USERNAME after creating the GitHub repository.
 backend:
   name: github
   repo: saroj-kc/naya-aasha
@@ -92,6 +91,16 @@ collections:
             fields:
               - {label: Value, name: title, widget: string}
               - {label: Explanation, name: text, widget: text}
+          - {label: Founder message heading, name: founderMessageTitle, widget: string}
+          - {label: Founder message, name: founderMessage, widget: text}
+          - {label: Founder name, name: founderName, widget: string}
+          - {label: Founder role/title, name: founderRole, widget: string}
+          - {label: Founder photo, name: founderPhoto, widget: image, required: false}
+          - label: Team placeholder roles
+            name: emptyTeamRoles
+            widget: list
+            field: {label: Role, name: role, widget: string}
+            hint: These placeholders are shown only until real team profiles are published.
       - name: get_involved
         label: Get involved page
         file: src/content/pages/get-involved.json
