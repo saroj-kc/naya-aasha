@@ -13,6 +13,7 @@ const nav=[['About','/about/'],['Programs','/programs/'],['Impact','/impact/'],[
     <button class="menu-btn" aria-expanded="false" aria-controls="primary-nav"><span></span><span></span><span></span><b class="sr-only">Menu</b></button>
     <nav id="primary-nav" aria-label="Primary navigation">
       {nav.map(([label,url])=><a class:list={{active:path.startsWith(url)}} href={url}>{label}</a>)}
+      <a class="converter-link notranslate" translate="no" href="/unicode-preeti/" title="Unicode and Preeti converter" aria-label="Open Unicode and Preeti converter"><span aria-hidden="true">अ↔A</span><b>Converter</b></a>
       <label class="language-switcher notranslate" translate="no">
         <span class="sr-only">Choose website language</span>
         <select data-language-select aria-label="Choose website language">
@@ -70,6 +71,7 @@ let toolbarChecks=0;const toolbarTimer=setInterval(()=>{hideGoogleToolbar();if(+
 </script>
 <script is:inline async src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 <style>
+.converter-link{display:flex;align-items:center;gap:5px;color:var(--green-dark);font-size:11px;font-weight:800;white-space:nowrap}.converter-link span{display:grid;place-items:center;width:31px;height:31px;border-radius:50%;background:var(--orange-soft);color:#8a5700;font-size:13px}.converter-link:hover{color:var(--green)}
 .language-switcher{display:flex;align-items:center;border:1px solid var(--line);border-radius:999px;background:#fff;white-space:nowrap}
 .language-switcher select{max-width:108px;border:0;background:transparent;color:var(--green-dark);font:inherit;font-size:11px;font-weight:800;padding:8px 25px 8px 10px;cursor:pointer;border-radius:999px}
 .language-switcher select:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
@@ -77,5 +79,5 @@ let toolbarChecks=0;const toolbarTimer=setInterval(()=>{hideGoogleToolbar();if(+
 :global(.goog-te-banner-frame.skiptranslate),:global(iframe.goog-te-banner-frame),:global(iframe.skiptranslate),:global(iframe.VIpgJd-ZVi9od-ORHb-OEVmcd),:global(.goog-te-gadget-icon){display:none!important;height:0!important;visibility:hidden!important}
 :global(html){margin-top:0!important}
 :global(body){top:0!important;margin-top:0!important}
-@media(max-width:900px){.language-switcher{align-self:flex-start;margin:14px 0}}
+@media(max-width:900px){.converter-link{align-self:flex-start}.language-switcher{align-self:flex-start;margin:14px 0}}
 </style>
