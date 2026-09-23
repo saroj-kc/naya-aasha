@@ -1,4 +1,26 @@
 ---
-import Base from '../../layouts/BaseLayout.astro'; import policies from '../../content/pages/policies.json';
+import Base from '../../layouts/BaseLayout.astro';
+import policies from '../../content/pages/policies.json';
 ---
-<Base title="Privacy Policy | Naya Aasha" description="How Naya Aasha handles personal information."><section class="page-hero"><div class="wrap"><p class="breadcrumb"><a href="/">Home</a> / Privacy</p><p class="eyebrow">Policy</p><h1 class="display">{policies.privacyTitle}</h1></div></section><section class="section"><div class="narrow prose"><p>{policies.privacyText}</p><h2>Information we may collect</h2><p>Contact details and information voluntarily provided through enquiries, volunteer applications, partnership discussions, or support requests.</p><h2>Contact</h2><p>Questions about privacy can be sent to <a class="text-link" href={`mailto:${policies.complaintsEmail}`}>{policies.complaintsEmail}</a>.</p><p class="notice">This starter policy should be reviewed against Naya Aasha’s actual operations and Nepal’s applicable legal requirements before launch.</p></div></section></Base>
+<Base title="Privacy Policy | Naya Aasha" description="How Naya Aasha handles personal information, privacy choices, and website analytics.">
+  <section class="page-hero"><div class="wrap"><p class="breadcrumb"><a href="/">Home</a> / Privacy</p><p class="eyebrow">Policy</p><h1 class="display">{policies.privacyTitle}</h1></div></section>
+  <section class="section"><div class="narrow prose">
+    <p>{policies.privacyText}</p>
+    <h2>Information you provide</h2>
+    <p>We may receive contact details and information that you voluntarily submit through enquiries, volunteer applications, partnership discussions, or support requests. Please do not submit private medical records through the website.</p>
+    <h2>Privacy choices and local storage</h2>
+    <p>The website stores your language and analytics choice in your browser so it can remember your preference. This necessary browser storage is not used for advertising. You can change your choice at any time using “Cookie settings” in the footer.</p>
+    <h2>Optional website analytics</h2>
+    <p>If you accept analytics, we use Vercel Web Analytics to understand aggregate page visits, referring pages, approximate country or region, browser, operating system, and device type. We do not use analytics for advertising, sell analytics data, store raw IP addresses, create persistent visitor IDs, or reconstruct an individual person’s browsing history.</p>
+    <p>Vercel uses a temporary request-derived hash for anonymous counting and discards the visitor session identifier after approximately 24 hours. Aggregate reports are reviewed for no longer than 30 days for routine website improvement.</p>
+    <h2>Third-party services</h2>
+    <p>Google Translate is loaded when translation features are used and may process page content according to Google’s terms. Web3Forms processes information submitted through the contact form so it can be delivered to Naya Aasha. GitHub authenticates authorized CMS administrators.</p>
+    <h2>Security and access</h2>
+    <p>The website uses HTTPS, restricted browser permissions, secure response headers, GitHub OAuth for CMS access, and limited administrative access. Security logs may be reviewed when necessary to investigate abuse, but they are not used to profile ordinary visitors.</p>
+    <h2>Your choices</h2>
+    <p><button class="btn btn-secondary" type="button" data-cookie-settings>Open cookie settings</button></p>
+    <h2>Contact</h2>
+    <p>Questions about privacy can be sent to <a class="text-link" href={`mailto:${policies.complaintsEmail}`}>{policies.complaintsEmail}</a>.</p>
+    <p class="notice">This policy should be reviewed periodically against Naya Aasha’s actual operations and Nepal’s applicable legal requirements.</p>
+  </div></section>
+</Base>
