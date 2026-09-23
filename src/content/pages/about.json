@@ -1,13 +1,5 @@
 {
-  "seoTitle": "About Us | Naya Aasha",
-  "seoDescription": "Learn about Naya Aasha's story, mission, vision, values, and community-centered approach.",
-  "eyebrow": "Who we are",
-  "title": "A new hope, built together.",
-  "intro": "Naya Aasha is a nonprofit initiative committed to supporting children, people living with HIV, low-income families, and underserved communities in Nepal.",
-  "storyTitle": "Our story",
-  "story": "Naya Aasha was created from a simple belief: difficult circumstances should never decide the limits of a person’s future. We bring people, skills, and resources together to help communities address urgent needs while building pathways toward long-term independence.",
-  "mission": "To empower children, people living with HIV, and underserved communities by improving access to education, health support, essential resources, and sustainable opportunities.",
-  "vision": "A compassionate and inclusive society where every person can live with dignity, hope, and equal opportunity, regardless of economic condition, health status, identity, or background.",
+  "founderMessageTitle": "Message from the Founder",
   "values": [
     {
       "title": "Dignity",
@@ -34,15 +26,23 @@
       "text": "We create lasting change by working with communities and partners."
     }
   ],
-  "founderMessageTitle": "Message from the Founder",
-  "founderMessage": "A personal message from the founder will be published here after review and approval.",
-  "founderName": "Name to be confirmed",
-  "founderRole": "Founder, Naya Aasha",
+  "storyTitle": "Our story",
   "founderPhoto": "",
+  "founderRole": "Founder, Naya Aasha",
+  "vision": "A compassionate and inclusive society where every person can live with dignity, hope, and equal opportunity, regardless of economic condition, health status, identity, or background.",
+  "eyebrow": "Who we are",
+  "mission": "To empower children, people living with HIV, and underserved communities by improving access to education, health support, essential resources, and sustainable opportunities.",
+  "intro": "Naya Aasha is a nonprofit initiative committed to supporting children, people living with HIV, low-income families, and underserved communities in Nepal.",
   "emptyTeamRoles": [
     "Founder",
     "Board Chairperson",
     "Program Lead",
     "Safeguarding Focal Person"
-  ]
+  ],
+  "story": "Naya Aasha was created from a simple belief: difficult circumstances should never decide the limits of a person’s future. We bring people, skills, and resources together to help communities address urgent needs while building pathways toward long-term independence.",
+  "founderMessage": "When Naya Aasha began, we had no office, no funding, and no certainty that it would work. What we had was a conviction that difficult circumstances should never decide the limits of a person's future and a refusal to accept how ordinary it had become for families to be told that nothing could be done.\n\nthe moment you decided. A family you met, a child who stopped attending school, someone who left treatment because of how they were treated. Specific, real, and told without identifying anyone who has not consented.\n\nWe work with children whose education is interrupted by cost, with people living with HIV who face stigma more often than they face a shortage of medicine, and with families managing more than any family should have to manage alone. We do not pretend these problems are simple, and we do not pretend we can solve them by ourselves.\n\nWhat we can promise is this. We listen before we act. We do not make commitments we cannot keep. We protect the privacy and dignity of every person who comes to us, especially those who are most easily overlooked. And we account openly for what we receive and what we spend, because trust given to an organization like ours is not owed  it is earned, and it can be lost.\n\nNaya Aasha is not the work of one person. It belongs to the volunteers who give their time, the partners who share their expertise, the supporters who make our programmes possible, and above all the families who allow us into some of the hardest moments of their lives. That last trust is the one we take most seriously.\n\nThere is a great deal still to build. If our work speaks to you, we would welcome you in it.\n\n",
+  "title": "A new hope, built together.",
+  "founderName": "Rupesh Rai",
+  "seoTitle": "About Us | Naya Aasha",
+  "seoDescription": "Learn about Naya Aasha's story, mission, vision, values, and community-centered approach."
 }
