@@ -1,4 +1,37 @@
 ---
-import Base from '../../layouts/BaseLayout.astro'; import page from '../../content/pages/contact.json'; import site from '../../content/pages/site.json';
+import Base from '../../layouts/BaseLayout.astro';
+import page from '../../content/pages/contact.json';
+import site from '../../content/pages/site.json';
+const formReady=Boolean(page.formAccessKey);
 ---
-<Base title={page.seoTitle} description={page.seoDescription}><section class="page-hero"><div class="wrap"><p class="breadcrumb"><a href="/">Home</a> / Contact</p><p class="eyebrow">{page.eyebrow}</p><h1 class="display">Let’s begin with <em style="color:var(--green);font-weight:400">a conversation.</em></h1><p class="lead">{page.intro}</p></div></section><section class="section"><div class="wrap form-grid"><div class="contact-panel"><p class="eyebrow light">Contact details</p><h2 class="heading">We’re here to listen.</h2><p><strong>Email</strong><br/><a href={`mailto:${site.email}`}>{site.email}</a></p><p><strong>Phone</strong><br/><a href={`tel:${site.phone}`}>{site.phone}</a></p><p><strong>Location</strong><br/>{site.address}</p><p class="notice">{page.supportNotice}</p></div><form class="form" method="POST" action={page.formEndpoint||'#'}><label>Your name<input name="name" required autocomplete="name"/></label><label>Email address<input type="email" name="email" required autocomplete="email"/></label><label>Reason for contact<select name="reason"><option>General enquiry</option><option>Volunteer</option><option>Partnership</option><option>Request support</option><option>Safeguarding concern</option></select></label><label>Message<textarea name="message" required></textarea></label><label style="font-weight:400"><input type="checkbox" required style="width:auto;margin-right:8px"/>I consent to Naya Aasha using this information to respond to my enquiry.</label><button class="btn" type="submit">Send message</button><p class="note">This demonstration form needs a free form endpoint configured before launch. Do not include private medical records.</p></form></div></section></Base>
+<Base title={page.seoTitle} description={page.seoDescription}>
+  <section class="page-hero"><div class="wrap"><p class="breadcrumb"><a href="/">Home</a> / Contact</p><p class="eyebrow">{page.eyebrow}</p><h1 class="display">Let’s begin with <em style="color:var(--green);font-weight:400">a conversation.</em></h1><p class="lead">{page.intro}</p></div></section>
+  <section class="section"><div class="wrap form-grid">
+    <div class="contact-panel"><p class="eyebrow light">Contact details</p><h2 class="heading">We’re here to listen.</h2><p><strong>Email</strong><br/><a href={`mailto:${site.email}`}>{site.email}</a></p><p><strong>Phone</strong><br/><a href={`tel:${site.phone}`}>{site.phone}</a></p><p><strong>Location</strong><br/>{site.address}</p><p class="notice">{page.supportNotice}</p></div>
+    <form class="form" method="POST" action={formReady?'https://api.web3forms.com/submit':'#'}>
+      <input type="hidden" name="access_key" value={page.formAccessKey}/>
+      <input type="hidden" name="subject" value="New enquiry from the Naya Aasha website"/>
+      <input type="hidden" name="from_name" value="Naya Aasha Website"/>
+      <input type="hidden" name="redirect" value="https://nayaaasha.org.np/contact/?sent=1"/>
+      <input type="checkbox" name="botcheck" class="sr-only" tabindex="-1" autocomplete="off"/>
+      <div id="form-success" class="notice success-notice" hidden>{page.successMessage}</div>
+      <label>Your name<input name="name" required autocomplete="name"/></label>
+      <label>Email address<input type="email" name="email" required autocomplete="email"/></label>
+      <label>Reason for contact<select name="reason"><option>General enquiry</option><option>Volunteer</option><option>Partnership</option><option>Request support</option><option>Safeguarding concern</option></select></label>
+      <label>Message<textarea name="message" required></textarea></label>
+      <label style="font-weight:400"><input type="checkbox" name="consent" value="Yes" required style="width:auto;margin-right:8px"/>I consent to Naya Aasha using this information to respond to my enquiry.</label>
+      <button class="btn" type="submit" disabled={!formReady}>Send message</button>
+      {!formReady&&<p class="note">The secure contact form is being configured. Please email us directly in the meantime.</p>}
+      {formReady&&<p class="note">Your message is securely processed by Web3Forms and delivered to Naya Aasha. Do not include private medical records.</p>}
+    </form>
+  </div></section>
+</Base>
+<script is:inline>
+const params=new URLSearchParams(location.search);
+if(params.get('sent')==='1'){
+  const success=document.querySelector('#form-success');
+  if(success){success.hidden=false;success.scrollIntoView({behavior:'smooth',block:'center'});}
+  history.replaceState({},'',location.pathname);
+}
+</script>
+<style>.success-notice{color:var(--ink);font-weight:700;margin-bottom:8px}</style>
