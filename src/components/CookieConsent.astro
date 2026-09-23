@@ -1,0 +1,51 @@
+<aside id="privacy-consent" class="consent notranslate" translate="no" hidden aria-labelledby="consent-title" aria-live="polite">
+  <div class="consent-copy">
+    <strong id="consent-title">Privacy choices</strong>
+    <p>We use necessary local storage for your language and privacy choices. With your permission, privacy-safe analytics helps us understand visits by page, country, browser, and device type. It does not store raw IP addresses or create an individual visitor profile.</p>
+  </div>
+  <div class="consent-actions">
+    <a href="/privacy/">Privacy policy</a>
+    <button type="button" class="reject" data-consent="rejected">Reject analytics</button>
+    <button type="button" class="accept" data-consent="accepted">Accept analytics</button>
+  </div>
+</aside>
+
+<script is:inline>
+(()=>{
+  const KEY='naya_aasha_privacy_v1';
+  const banner=document.querySelector('#privacy-consent');
+  let analyticsLoaded=false;
+  const loadAnalytics=()=>{
+    if(analyticsLoaded||document.querySelector('script[data-naya-analytics]'))return;
+    analyticsLoaded=true;
+    window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};
+    const script=document.createElement('script');
+    script.defer=true;
+    script.src='/_vercel/insights/script.js';
+    script.dataset.nayaAnalytics='true';
+    document.head.appendChild(script);
+  };
+  const readChoice=()=>{try{return JSON.parse(localStorage.getItem(KEY)||'null')}catch{return null}};
+  const saveChoice=(analytics)=>{
+    try{localStorage.setItem(KEY,JSON.stringify({analytics,updated:new Date().toISOString()}))}catch{}
+    banner.hidden=true;
+    if(analytics)loadAnalytics();
+  };
+  const showChoices=()=>{banner.hidden=false;banner.querySelector('button')?.focus()};
+  const choice=readChoice();
+  if(choice?.analytics===true)loadAnalytics();
+  else if(choice?.analytics!==false){
+    if(navigator.globalPrivacyControl===true||navigator.doNotTrack==='1')saveChoice(false);
+    else banner.hidden=false;
+  }
+  banner.querySelectorAll('[data-consent]').forEach(button=>button.addEventListener('click',()=>saveChoice(button.dataset.consent==='accepted')));
+  document.addEventListener('click',event=>{
+    const trigger=event.target.closest('[data-cookie-settings]');
+    if(trigger){event.preventDefault();showChoices();}
+  });
+})();
+</script>
+
+<style>
+.consent{position:fixed;z-index:1000;left:20px;right:20px;bottom:20px;max-width:1120px;margin:auto;display:grid;grid-template-columns:1fr auto;gap:28px;align-items:center;padding:24px 26px;border:1px solid #d5e4de;border-radius:18px;background:#fff;color:#123633;box-shadow:0 20px 70px rgba(9,47,45,.24)}.consent[hidden]{display:none}.consent strong{font-family:Georgia,'Times New Roman',serif;font-size:22px}.consent p{margin:5px 0 0;color:#405754;font-size:14px;line-height:1.55;max-width:720px}.consent-actions{display:flex;align-items:center;justify-content:flex-end;flex-wrap:wrap;gap:9px}.consent-actions a,.consent-actions button{font:inherit;font-size:13px;font-weight:750;white-space:nowrap}.consent-actions a{color:#167761;text-decoration:underline;text-underline-offset:3px}.consent-actions button{border:1px solid #167761;border-radius:999px;padding:10px 15px;cursor:pointer}.consent-actions .reject{background:#fff;color:#0c4d45}.consent-actions .accept{background:#167761;color:#fff}.consent-actions button:focus-visible,.consent-actions a:focus-visible{outline:3px solid #f3a72e;outline-offset:3px}@media(max-width:760px){.consent{left:10px;right:10px;bottom:10px;grid-template-columns:1fr;padding:20px;gap:18px}.consent-actions{justify-content:flex-start}.consent-actions a{width:100%;margin-bottom:4px}}
+</style>
