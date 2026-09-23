@@ -128,7 +128,8 @@ collections:
           - {label: Eyebrow, name: eyebrow, widget: string}
           - {label: Title, name: title, widget: string}
           - {label: Introduction, name: intro, widget: text}
-          - {label: Form submission endpoint, name: formEndpoint, widget: string, required: false, hint: Add the endpoint from a free form provider after setup.}
+          - {label: Form submission endpoint, name: formEndpoint, widget: hidden, default: https://api.web3forms.com/submit}
+          - {label: Web3Forms access key, name: formAccessKey, widget: string, required: false, hint: Get a free key from web3forms.com and paste it here. This key is designed for use in browser forms.}
           - {label: Success message, name: successMessage, widget: string}
           - {label: Support request notice, name: supportNotice, widget: text}
       - name: policies
