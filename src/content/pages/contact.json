@@ -4,7 +4,7 @@
   "eyebrow": "Contact us",
   "title": "Let’s begin with a conversation.",
   "intro": "Contact us about volunteering, partnerships, support, or a general question. Please do not send private medical records through this form.",
-  "formEndpoint": "",
+  "formEndpoint": "https://formsubmit.co/nayaaashanepal@gmail.com",
   "successMessage": "Thank you. Your message has been received.",
   "supportNotice": "Submitting a request does not guarantee assistance. Requests are reviewed according to need, program scope, safeguarding requirements, and available resources."
 }
