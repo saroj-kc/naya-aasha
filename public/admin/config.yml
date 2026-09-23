@@ -234,5 +234,12 @@ collections:
       - {label: Document title, name: title, widget: string}
       - {label: Document date, name: date, widget: datetime, format: YYYY-MM-DD, date_format: YYYY-MM-DD, time_format: false, hint: Choose the official date from the calendar.}
       - {label: Type, name: type, widget: select, options: [Annual report, Audited financial statement, Program report, Registration document, Policy, Other]}
-      - {label: PDF/document, name: file, widget: file, required: false}
+      - {label: PDF document (optional), name: file, widget: file, required: false, hint: Upload one multi-page PDF. It will open inside the protected website viewer.}
+      - label: Document page images (optional, multiple)
+        name: images
+        widget: list
+        required: false
+        summary: 'Page {{fields.image}}'
+        field: {label: Page image, name: image, widget: image}
+        hint: Add as many JPG, JPEG, PNG, or WebP page images as needed. Use Add below for each page and keep them in page order.
       - {label: Notes, name: body, widget: markdown, required: false}
