@@ -23,6 +23,8 @@ const nav=[['About','/about/'],['Programs','/programs/'],['Impact','/impact/'],[
           <option value="es">Español</option>
           <option value="zh-CN">中文</option>
           <option value="de">Deutsch</option>
+          <option value="ja">日本語</option>
+          <option value="ko">한국어</option>
         </select>
       </label>
       <div id="google_translate_element" class="translation-engine" aria-hidden="true"></div>
@@ -38,12 +40,12 @@ btn?.addEventListener('click',()=>{const open=btn.getAttribute('aria-expanded')=
 window.googleTranslateElementInit=()=>{
   new google.translate.TranslateElement({
     pageLanguage:'en',
-    includedLanguages:'en,ne,fr,es,zh-CN,de',
+    includedLanguages:'en,ne,fr,es,zh-CN,de,ja,ko',
     autoDisplay:false
   },'google_translate_element');
   setTimeout(()=>syncGoogleSelector(true),300);
 };
-const supportedLanguages=['en','ne','fr','es','zh-CN','de'];
+const supportedLanguages=['en','ne','fr','es','zh-CN','de','ja','ko'];
 const translationCookie=()=>{
   const match=decodeURIComponent(document.cookie).match(/googtrans=\/en\/([^;]+)/);
   return match&&supportedLanguages.includes(match[1])?match[1]:'en';
