@@ -228,11 +228,11 @@ collections:
     extension: md
     format: frontmatter
     slug: '{{slug}}'
-    summary: '{{title}} — {{year}}'
+    summary: '{{title}} — {{date}}'
     fields:
       - {label: Keep as draft, name: draft, widget: boolean, default: true}
       - {label: Document title, name: title, widget: string}
-      - {label: Year, name: year, widget: number, value_type: int}
+      - {label: Document date, name: date, widget: datetime, format: YYYY-MM-DD, date_format: YYYY-MM-DD, time_format: false, hint: Choose the official date from the calendar.}
       - {label: Type, name: type, widget: select, options: [Annual report, Audited financial statement, Program report, Registration document, Policy, Other]}
       - {label: PDF/document, name: file, widget: file, required: false}
       - {label: Notes, name: body, widget: markdown, required: false}
