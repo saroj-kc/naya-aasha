@@ -49,7 +49,7 @@ const placeholderRoles=about.emptyTeamRoles||[];
       <p class="eyebrow">Our people</p><h2 class="heading">Our Team</h2>
       <p class="lead">Meet the people who guide Naya Aasha’s work with care, accountability, and respect for the communities we serve.</p>
       <div class="cards-3 team-grid">
-        {team.length>0 ? team.map(m=><article class="content-card"><div class="visual">{m.data.photo?<img src={m.data.photo} alt={m.data.name}/>:m.data.name[0]}</div><div class="body"><h3>{m.data.name}</h3><p>{m.data.role}</p></div></article>) : placeholderRoles.map(role=><article class="content-card placeholder-card"><div class="visual" aria-hidden="true">न</div><div class="body"><h3>{role}</h3><p>Profile coming soon</p></div></article>)}
+        {team.length>0 ? team.map(m=><article class="content-card"><div class="visual">{m.data.photo?<img src={m.data.photo} alt={m.data.name}/>:m.data.name[0]}</div><div class="body"><h3>{m.data.name}</h3><p>{m.data.role}</p></div></article>) : placeholderRoles.map((role,index)=><article class="content-card placeholder-card"><div class="visual">{index===0&&about.founderPhoto?<img src={about.founderPhoto} alt={`Portrait of ${about.founderName}`} loading="lazy"/>:<span aria-hidden="true">न</span>}</div><div class="body"><h3>{index===0&&about.founderName?about.founderName:role}</h3><p>{index===0&&about.founderRole?about.founderRole:'Profile coming soon'}</p></div></article>)}
       </div>
     </div>
   </section>
