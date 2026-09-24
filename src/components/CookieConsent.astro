@@ -1,7 +1,7 @@
 <aside id="privacy-consent" class="consent notranslate" translate="no" hidden aria-labelledby="consent-title" aria-live="polite">
   <div class="consent-copy">
     <strong id="consent-title">Privacy choices</strong>
-    <p>We use necessary local storage for your language and privacy choices. With your permission, privacy-safe analytics helps us understand visits by page, country, browser, and device type. It does not store raw IP addresses or create an individual visitor profile.</p>
+    <p>We use necessary local storage for your language and privacy choices. With your permission, Vercel Analytics and Google Analytics help us understand visits by page, approximate country, browser, and device type. Google Analytics may set analytics cookies. We disable advertising features and do not use analytics to identify visitors.</p>
   </div>
   <div class="consent-actions">
     <a href="/privacy/">Privacy policy</a>
@@ -15,21 +15,59 @@
   const KEY='naya_aasha_privacy_v1';
   const banner=document.querySelector('#privacy-consent');
   let analyticsLoaded=false;
+  const GA_ID='G-LXYY3DBFQH';
   const loadAnalytics=()=>{
-    if(analyticsLoaded||document.querySelector('script[data-naya-analytics]'))return;
+    if(analyticsLoaded)return;
     analyticsLoaded=true;
-    window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};
-    const script=document.createElement('script');
-    script.defer=true;
-    script.src='/_vercel/insights/script.js';
-    script.dataset.nayaAnalytics='true';
-    document.head.appendChild(script);
+
+    // Privacy-focused Vercel Web Analytics
+    if(!document.querySelector('script[data-naya-analytics]')){
+      window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};
+      const vercelScript=document.createElement('script');
+      vercelScript.defer=true;
+      vercelScript.src='/_vercel/insights/script.js';
+      vercelScript.dataset.nayaAnalytics='true';
+      document.head.appendChild(vercelScript);
+    }
+
+    // Google Analytics is loaded only after the visitor accepts analytics.
+    window.dataLayer=window.dataLayer||[];
+    window.gtag=window.gtag||function(){window.dataLayer.push(arguments)};
+    window.gtag('consent','default',{
+      analytics_storage:'granted',
+      ad_storage:'denied',
+      ad_user_data:'denied',
+      ad_personalization:'denied'
+    });
+    window.gtag('js',new Date());
+    window.gtag('config',GA_ID,{
+      anonymize_ip:true,
+      allow_google_signals:false,
+      allow_ad_personalization_signals:false
+    });
+    if(!document.querySelector('script[data-google-analytics]')){
+      const googleScript=document.createElement('script');
+      googleScript.async=true;
+      googleScript.src=`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`;
+      googleScript.dataset.googleAnalytics='true';
+      document.head.appendChild(googleScript);
+    }
+  };
+  const disableAnalytics=()=>{
+    if(window.gtag)window.gtag('consent','update',{
+      analytics_storage:'denied',ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied'
+    });
+    document.cookie.split(';').forEach(cookie=>{
+      const name=cookie.split('=')[0].trim();
+      if(name==='_ga'||name.startsWith('_ga_'))document.cookie=`${name}=; Max-Age=0; path=/; SameSite=Lax`;
+    });
   };
   const readChoice=()=>{try{return JSON.parse(localStorage.getItem(KEY)||'null')}catch{return null}};
   const saveChoice=(analytics)=>{
     try{localStorage.setItem(KEY,JSON.stringify({analytics,updated:new Date().toISOString()}))}catch{}
     banner.hidden=true;
     if(analytics)loadAnalytics();
+    else disableAnalytics();
   };
   const showChoices=()=>{banner.hidden=false;banner.querySelector('button')?.focus()};
   const choice=readChoice();
