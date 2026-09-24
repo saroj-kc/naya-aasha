@@ -1,5 +1,30 @@
 ---
-import Base from '../../layouts/BaseLayout.astro'; import {getCollection,render} from 'astro:content';
-const updates=(await getCollection('updates',({data})=>!data.draft)).sort((a,b)=>+b.data.date-+a.data.date); const items=await Promise.all(updates.map(async u=>({u,Content:(await render(u)).Content})));
+import Base from '../../layouts/BaseLayout.astro';
+import {getCollection} from 'astro:content';
+const updates=(await getCollection('updates',({data})=>!data.draft)).sort((a,b)=>+b.data.date-+a.data.date);
+const articleUrl=(id:string)=>`/updates/${id.replace(/\.(md|mdx)$/,'')}/`;
+const formatDate=(date:Date)=>new Intl.DateTimeFormat('en-NP',{day:'numeric',month:'long',year:'numeric'}).format(date);
 ---
-<Base title="News & Updates | Naya Aasha" description="Latest news, notices, and program updates from Naya Aasha."><section class="page-hero"><div class="wrap"><p class="breadcrumb"><a href="/">Home</a> / Updates</p><p class="eyebrow">News & updates</p><h1 class="display">Follow the work <em style="color:var(--green);font-weight:400">as it grows.</em></h1><p class="lead">Program notices, organizational news, opportunities, and field updates.</p></div></section><section class="section"><div class="wrap cards-3">{items.map(({u,Content})=><article class="content-card"><div class="visual">न</div><div class="body"><span class="meta">{u.data.category} · {u.data.date.toLocaleDateString('en-NP')}</span><h2>{u.data.title}</h2><p>{u.data.excerpt}</p><div class="prose"><Content/></div></div></article>)}</div></section></Base>
+<Base title="News & Updates | Naya Aasha" description="Latest news, notices, and program updates from Naya Aasha.">
+  <section class="page-hero"><div class="wrap"><p class="breadcrumb"><a href="/">Home</a> / Updates</p><p class="eyebrow">News & updates</p><h1 class="display">Follow the work <em>as it grows.</em></h1><p class="lead">Program notices, organizational news, opportunities, and field updates.</p></div></section>
+
+  <section class="updates-section"><div class="wrap">
+    {updates.length ? <div class="updates-grid">{updates.map((update,index)=>
+      <article class:list={["update-card",index===0&&"featured"]}>
+        <a class="card-visual" href={articleUrl(update.id)} aria-label={`Read ${update.data.title}`}>
+          {update.data.image?<img src={update.data.image} alt="" loading={index===0?'eager':'lazy'}/>:<span aria-hidden="true">न</span>}
+        </a>
+        <div class="card-body">
+          <p class="meta">{update.data.category} <span>·</span> <time datetime={update.data.date.toISOString()}>{formatDate(update.data.date)}</time></p>
+          <h2><a href={articleUrl(update.id)}>{update.data.title}</a></h2>
+          <p class="excerpt">{update.data.excerpt}</p>
+          <a class="read-link" href={articleUrl(update.id)}>Read full article <span aria-hidden="true">→</span></a>
+        </div>
+      </article>
+    )}</div>:<div class="empty-state">Published news and updates will appear here.</div>}
+  </div></section>
+</Base>
+
+<style>
+.page-hero .display em{color:var(--green);font-weight:400}.updates-section{padding:80px 0 110px;background:linear-gradient(#fff,#fbf8f1)}.updates-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px}.update-card{display:grid;grid-template-rows:auto 1fr;border:1px solid var(--line);border-radius:24px;overflow:hidden;background:#fff;box-shadow:0 12px 40px rgba(18,54,51,.07);transition:transform .22s ease,box-shadow .22s ease}.update-card:hover{transform:translateY(-4px);box-shadow:0 22px 55px rgba(18,54,51,.13)}.card-visual{height:260px;overflow:hidden;background:linear-gradient(145deg,var(--mint),var(--orange-soft));display:grid;place-items:center}.card-visual img{width:100%;height:100%;object-fit:cover;transition:transform .35s ease}.update-card:hover .card-visual img{transform:scale(1.025)}.card-visual span{font-family:var(--serif);font-size:88px;color:var(--green);opacity:.85}.card-body{padding:30px;display:flex;flex-direction:column}.meta{margin:0 0 12px;font-size:12px;text-transform:uppercase;letter-spacing:.1em;color:var(--green);font-weight:750}.meta span{color:#9eb2ae;margin:0 4px}.card-body h2{font-family:var(--serif);font-size:clamp(26px,3vw,34px);line-height:1.18;letter-spacing:-.02em;margin:0 0 14px}.card-body h2 a:hover{color:var(--green)}.excerpt{color:var(--muted);margin:0 0 24px;font-size:16px;line-height:1.7}.read-link{color:var(--green);font-weight:800;margin-top:auto;display:inline-flex;align-items:center;gap:8px}.read-link span{transition:transform .2s}.read-link:hover span{transform:translateX(5px)}@media(max-width:760px){.updates-section{padding:55px 0 75px}.updates-grid{grid-template-columns:1fr;gap:20px}.card-visual{height:220px}.card-body{padding:24px}.card-body h2{font-size:28px}}
+</style>
