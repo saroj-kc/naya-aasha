@@ -7,8 +7,6 @@ excerpt: Nearly 33,000 people across five districts have been affected. The
 date: 2026-09-10
 category: Organization update
 ---
-
-
 On the morning of 26 August 2026, an ice and rock avalanche came down into the Lhende Khola, about 20 kilometres above Rasuwagadhi.
 
 What followed was not simply a flood.
@@ -94,3 +92,7 @@ But for the people who are missing someone, sleeping away from home, rebuilding 
 **Recovery will take years.**
 
 And long after the floodwaters have receded, people will still be rebuilding their lives.
+
+```
+
+```
