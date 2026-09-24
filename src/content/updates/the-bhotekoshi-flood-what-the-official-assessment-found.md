@@ -33,11 +33,7 @@ Across Rasuwa, Nuwakot, Dhading, Gorkha and Chitwan, **8,317 households  roughly
 
 At the time of the assessment, **3,685 people were still living in 37 holding centres.**
 
-For thousands of people, the place they called home had become a temporary shelter. For many others, a familiar landscape had been transformed by loss.
-
-The flood also damaged **18 schools and seven health facilities**  places that communities rely on not only during ordinary times, but especially when life becomes difficult.
-
-Nuwakot recorded the largest number of affected households, with **4,418**. Rasuwa followed with **1,923**, and Dhading with **1,588**.
+For thousands of people, the place they called home had become a temporary shelter. For many others, a familiar landscape had been transformed by loss. The flood also damaged **18 schools and seven health facilities**  places that communities rely on not only during ordinary times, but especially when life becomes difficult. Nuwakot recorded the largest number of affected households, with **4,418**. Rasuwa followed with **1,923**, and Dhading with **1,588**.
 
 The economic cost is equally stark. The assessment estimates that the disaster’s total effect is equivalent to approximately **6.69 percent of Nepal’s national GDP**.
 
@@ -49,25 +45,17 @@ But money cannot fully describe what has been lost.
 
 A figure cannot show an empty home.
 
-It cannot tell the story of a family waiting for news about someone who has not come back.
-
-It cannot capture what it means for a child to lose the school they knew, or for a community to look at a damaged health facility and wonder where they will go when the next emergency comes.
-
-And it cannot measure the long, quiet work of rebuilding a life after the cameras leave.
+It cannot tell the story of a family waiting for news about someone who has not come back. It cannot capture what it means for a child to lose the school they knew, or for a community to look at a damaged health facility and wonder where they will go when the next emergency comes. And it cannot measure the long, quiet work of rebuilding a life after the cameras leave.
 
 ## What we can do
 
-Naya Aasha works in Lalitpur. We were not part of the emergency response, and we will not pretend that we were.
+ We were not part of the emergency response, and we will not pretend that we were.
 
-There are organisations with the expertise, equipment and local presence to respond to a disaster of this scale. They are doing work that matters enormously. And the families in the affected districts will continue doing the hardest work of all: living through what happened and rebuilding what they can.
+There are organizations with the expertise, equipment and local presence to respond to a disaster of this scale. They are doing work that matters enormously. And the families in the affected districts will continue doing the hardest work of all: living through what happened and rebuilding what they can.
 
 Our role is different.
 
-We can keep talking about what happened after the immediate headlines have passed.
-
-We can point people towards reliable information.
-
-And we can ask that anyone who wants to help does so carefully through channels that can account for the money entrusted to them.
+We can keep talking about what happened after the immediate headlines have passed. We can point people towards reliable information. And we can ask that anyone who wants to help does so carefully through channels that can account for the money entrusted to them.
 
 For those who want to contribute, the **Prime Minister’s Disaster Relief Fund** and the **district relief committees in the affected districts** are direct routes for support. NDRRMA is also publishing verified updates through its official channels.
 
@@ -81,13 +69,7 @@ And will you tell people what you spent and what you achieved?**
 
 ![](/uploads/flood-4.jpeg)
 
-In a crisis, accountability is not a bureaucratic detail. It is part of respecting the people who need help.
-
-The Bhotekoshi flood has already taken lives and disrupted thousands more.
-
-The immediate emergency may eventually end. The news cycle certainly will.
-
-But for the people who are missing someone, sleeping away from home, rebuilding a livelihood, returning to a damaged school or waiting for their community to become safe again, this story does not end here.
+In a crisis, accountability is not a bureaucratic detail. It is part of respecting the people who need help. The Bhotekoshi flood has already taken lives and disrupted thousands more. The immediate emergency may eventually end. The news cycle certainly will. But for the people who are missing someone, sleeping away from home, rebuilding a livelihood, returning to a damaged school or waiting for their community to become safe again, this story does not end here.
 
 **Recovery will take years.**
 
