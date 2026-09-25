@@ -1,13 +1,13 @@
 ---
 import Base from '../layouts/BaseLayout.astro';
 ---
-<Base title="Unicode ↔ Preeti Converter | Naya Aasha" description="A free browser-based Nepali Unicode and Preeti text converter from Naya Aasha.">
+<Base title="Nepali Unicode, Preeti & Roman Converter | Naya Aasha" description="A free browser-based converter for Nepali Unicode, Preeti, and Romanized Nepali text from Naya Aasha.">
   <section class="page-hero tool-hero">
     <div class="wrap">
-      <p class="breadcrumb"><a href="/">Home</a> / Unicode ↔ Preeti Converter</p>
+      <p class="breadcrumb"><a href="/">Home</a> / Nepali Text Converter</p>
       <p class="eyebrow">Free Nepali text utility</p>
-      <h1 class="display">Unicode <em>↔</em> Preeti</h1>
-      <p class="lead">Convert Nepali text in either direction directly in your browser. Your text is processed on your device and is not uploaded.</p>
+      <h1 class="display">Unicode, Preeti <em>&amp;</em> Roman</h1>
+      <p class="lead">Convert Preeti to Unicode, Unicode to Preeti, or Romanized Nepali to Unicode. Everything is processed privately in your browser and is not uploaded.</p>
     </div>
   </section>
 
@@ -16,24 +16,25 @@ import Base from '../layouts/BaseLayout.astro';
       <div class="mode-tabs" role="group" aria-label="Choose conversion direction">
         <button type="button" class="active" data-mode="preeti-unicode">Preeti → Unicode</button>
         <button type="button" data-mode="unicode-preeti">Unicode → Preeti</button>
+        <button type="button" data-mode="roman-unicode">Roman → Unicode</button>
       </div>
       <div class="converter-grid">
         <div>
           <label for="converter-input"><strong id="input-label">Preeti input</strong><span>Type or paste text below</span></label>
           <textarea id="converter-input" spellcheck="false" placeholder="Paste Preeti text here…"></textarea>
         </div>
-        <button type="button" class="swap-button" id="swap-mode" aria-label="Switch conversion direction">⇄</button>
+        <button type="button" class="swap-button" id="swap-mode" aria-label="Swap input and result" title="Swap input and result">⇄<span>Swap</span></button>
         <div>
           <label for="converter-output"><strong id="output-label">Unicode output</strong><span>Converted text appears automatically</span></label>
           <textarea id="converter-output" readonly placeholder="Converted text will appear here…"></textarea>
         </div>
       </div>
       <div class="tool-actions">
-        <button type="button" class="btn" id="copy-output">Copy result</button>
+        <button type="button" class="btn copy-result" id="copy-output"><span aria-hidden="true">⧉</span> Copy result</button>
         <button type="button" class="btn btn-secondary" id="clear-converter">Clear</button>
         <span id="converter-status" role="status" aria-live="polite"></span>
       </div>
-      <div class="notice tool-note"><strong>Please verify important documents.</strong> Preeti is a legacy font encoding, and complex conjuncts or unusual symbols may require a final manual check. When using Preeti output in desktop software, apply the Preeti font to the copied text.</div>
+      <div class="notice tool-note"><strong>Please verify important documents.</strong> Preeti is a legacy font encoding, and Roman spelling varies between writers. Complex conjuncts, names, or unusual symbols may require a final manual check. When using Preeti output in desktop software, apply the Preeti font to the copied text.</div>
     </div>
   </section>
 </Base>
@@ -52,29 +53,108 @@ const unicodeMap={
 'क':'s','ख':'v','ग':'u','च':'r','ज':'h','झ':'H','त':'t','थ':'y','द':'b','ध':'w','न':'g','प':'k','फ':'K','ब':'a','भ':'e','म':'d','य':'o','र':'/','ल':'n','व':'j','श':'z','ष':'i','स':';','ह':'x','अ':'c','इ':'O','उ':'p','ए':'P','ऋ':'C',
 'ा':'f','ि':'l','ी':'L','ु':"'",'ू':'"','ृ':'[','े':']','ै':'}','ं':'+','ँ':'F','्':'\\','।':'.'
 };
+
+// Local phonetic Roman-to-Nepali converter. Longest combinations are read first.
+const romanConsonants={
+  'ksh':'क्ष','chh':'छ','tth':'ठ','ddh':'ढ','gy':'ज्ञ','jn':'ज्ञ',
+  'kh':'ख','gh':'घ','ch':'च','jh':'झ','th':'थ','dh':'ध','ph':'फ','bh':'भ','sh':'श','ng':'ङ','ny':'ञ',
+  'k':'क','g':'ग','c':'च','j':'ज','t':'त','d':'द','n':'न','p':'प','b':'ब','m':'म','y':'य','r':'र','l':'ल','v':'व','w':'व','s':'स','h':'ह','f':'फ','q':'क','x':'क्स','z':'ज'
+};
+const romanVowels={
+  'aa':['आ','ा'],'ai':['ऐ','ै'],'au':['औ','ौ'],'ii':['ई','ी'],'ee':['ई','ी'],'uu':['ऊ','ू'],'oo':['ऊ','ू'],'ri':['ऋ','ृ'],
+  'a':['अ',''],'i':['इ','ि'],'u':['उ','ु'],'e':['ए','े'],'o':['ओ','ो']
+};
+const commonRoman={
+  'aasha':'आशा','aashaa':'आशा','naya':'नयाँ','nayaa':'नयाँ','nepal':'नेपाल','nepali':'नेपाली','namaste':'नमस्ते',
+  'dhanyabad':'धन्यवाद','dhanyavaad':'धन्यवाद','mero':'मेरो','hamro':'हाम्रो','hami':'हामी','timi':'तिमी','timro':'तिम्रो',
+  'tapai':'तपाईं','tapaai':'तपाईं','ma':'मा','ra':'र','ko':'को','lai':'लाई','le':'ले','pani':'पनि','ho':'हो','hoina':'होइन',
+  'cha':'छ','chha':'छ','garchha':'गर्छ','garchhu':'गर्छु','gareko':'गरेको','ghar':'घर','manchhe':'मान्छे','maanis':'मानिस',
+  'rupesh':'रुपेश','rai':'राई','kathmandu':'काठमाडौं','lalitpur':'ललितपुर','parivar':'परिवार','sahayog':'सहयोग'
+};
+const consonantKeys=Object.keys(romanConsonants).sort((a,b)=>b.length-a.length);
+const vowelKeys=Object.keys(romanVowels).sort((a,b)=>b.length-a.length);
 const input=document.querySelector('#converter-input'),output=document.querySelector('#converter-output'),status=document.querySelector('#converter-status');
 let mode='preeti-unicode';
+
 function preetiToUnicode(text){
- let result=[...text].map(ch=>preetiMap[ch]??ch).join('');
- result=result.replace(/ि([क-ह](?:्[क-ह])*)/g,'$1ि').replace(/ाे/g,'ो').replace(/ाै/g,'ौ').replace(/अा/g,'आ');
- return result;
+  let result=[...text].map(ch=>preetiMap[ch]??ch).join('');
+  result=result.replace(/ि([क-ह](?:्[क-ह])*)/g,'$1ि').replace(/ाे/g,'ो').replace(/ाै/g,'ौ').replace(/अा/g,'आ');
+  return result;
 }
 function unicodeToPreeti(text){
- text=text.replace(/([क-ह](?:्[क-ह])*)ि/g,'ि$1');
- const keys=Object.keys(unicodeMap).sort((a,b)=>b.length-a.length);let out='';
- for(let i=0;i<text.length;){let found='';for(const key of keys){if(text.startsWith(key,i)){found=key;break}}if(found){out+=unicodeMap[found];i+=found.length}else{out+=text[i++];}}
- return out;
+  text=text.replace(/([क-ह](?:्[क-ह])*)ि/g,'ि$1');
+  const keys=Object.keys(unicodeMap).sort((a,b)=>b.length-a.length);let out='';
+  for(let i=0;i<text.length;){let found='';for(const key of keys){if(text.startsWith(key,i)){found=key;break}}if(found){out+=unicodeMap[found];i+=found.length}else{out+=text[i++];}}
+  return out;
 }
-function convert(){output.value=mode==='preeti-unicode'?preetiToUnicode(input.value):unicodeToPreeti(input.value)}
-function setMode(next){mode=next;document.querySelectorAll('[data-mode]').forEach(b=>b.classList.toggle('active',b.dataset.mode===mode));document.querySelector('#input-label').textContent=mode==='preeti-unicode'?'Preeti input':'Unicode input';document.querySelector('#output-label').textContent=mode==='preeti-unicode'?'Unicode output':'Preeti output';input.placeholder=mode==='preeti-unicode'?'Paste Preeti text here…':'नेपाली युनिकोड यहाँ लेख्नुहोस्…';input.value='';output.value='';status.textContent=''}
-document.querySelectorAll('[data-mode]').forEach(b=>b.addEventListener('click',()=>setMode(b.dataset.mode)));
-document.querySelector('#swap-mode').addEventListener('click',()=>setMode(mode==='preeti-unicode'?'unicode-preeti':'preeti-unicode'));
+function romanWordToUnicode(original){
+  const word=original.toLowerCase();
+  if(commonRoman[word])return commonRoman[word];
+  let out='',pending='',i=0;
+  while(i<word.length){
+    let vowel='';
+    for(const key of vowelKeys){if(word.startsWith(key,i)){vowel=key;break}}
+    let consonant='';
+    for(const key of consonantKeys){if(word.startsWith(key,i)){consonant=key;break}}
+    // A vowel wins at this position; consonant combinations win otherwise.
+    if(vowel){
+      const [independent,sign]=romanVowels[vowel];
+      if(pending){out+=pending+sign;pending=''}else out+=independent;
+      i+=vowel.length;
+    }else if(consonant){
+      if(pending)out+=pending+'्';
+      pending=romanConsonants[consonant];
+      i+=consonant.length;
+    }else{
+      if(pending){out+=pending;pending=''}
+      out+=original[i];i++;
+    }
+  }
+  return out+pending;
+}
+function romanToUnicode(text){
+  return text.replace(/[A-Za-z]+/g,word=>romanWordToUnicode(word));
+}
+function convert(){
+  if(mode==='preeti-unicode')output.value=preetiToUnicode(input.value);
+  else if(mode==='unicode-preeti')output.value=unicodeToPreeti(input.value);
+  else output.value=romanToUnicode(input.value);
+}
+function modeDetails(){
+  if(mode==='preeti-unicode')return ['Preeti input','Unicode output','Paste Preeti text here…'];
+  if(mode==='unicode-preeti')return ['Unicode input','Preeti output','नेपाली युनिकोड यहाँ लेख्नुहोस्…'];
+  return ['Roman Nepali input','Unicode output','Romanized Nepali लेख्नुहोस्, जस्तै: mero naam…'];
+}
+function setMode(next,clear=true){
+  mode=next;
+  document.querySelectorAll('[data-mode]').forEach(button=>button.classList.toggle('active',button.dataset.mode===mode));
+  const [inputLabel,outputLabel,placeholder]=modeDetails();
+  document.querySelector('#input-label').textContent=inputLabel;
+  document.querySelector('#output-label').textContent=outputLabel;
+  input.placeholder=placeholder;
+  if(clear){input.value='';output.value=''}
+  status.textContent='';
+}
+document.querySelectorAll('[data-mode]').forEach(button=>button.addEventListener('click',()=>setMode(button.dataset.mode)));
+document.querySelector('#swap-mode').addEventListener('click',()=>{
+  if(!input.value&&!output.value)return;
+  const result=output.value;
+  if(mode==='preeti-unicode')setMode('unicode-preeti');
+  else if(mode==='unicode-preeti')setMode('preeti-unicode');
+  else setMode('unicode-preeti');
+  input.value=result;convert();input.focus();
+  status.textContent='Input and result swapped';setTimeout(()=>status.textContent='',1800);
+});
 input.addEventListener('input',convert);
 document.querySelector('#clear-converter').addEventListener('click',()=>{input.value='';output.value='';status.textContent='';input.focus()});
-document.querySelector('#copy-output').addEventListener('click',async()=>{if(!output.value)return;await navigator.clipboard.writeText(output.value);status.textContent='Copied to clipboard';setTimeout(()=>status.textContent='',2200)});
+document.querySelector('#copy-output').addEventListener('click',async()=>{
+  if(!output.value){status.textContent='Nothing to copy';return}
+  try{await navigator.clipboard.writeText(output.value)}catch{output.focus();output.select();document.execCommand('copy')}
+  status.textContent='Result copied';setTimeout(()=>status.textContent='',2200);
+});
 </script>
 
 <style>
-.tool-hero .display em{color:var(--orange);font-weight:400}.converter-section{background:var(--cream)}.converter-shell{padding:38px;background:#fff;border:1px solid var(--line);border-radius:26px;box-shadow:var(--shadow)}.mode-tabs{display:inline-flex;padding:5px;background:var(--mint);border-radius:999px;margin-bottom:30px}.mode-tabs button{border:0;background:transparent;padding:11px 19px;border-radius:999px;font-weight:800;color:var(--green-dark);cursor:pointer}.mode-tabs button.active{background:var(--green);color:#fff}.converter-grid{display:grid;grid-template-columns:1fr 54px 1fr;gap:18px;align-items:center}.converter-grid label{display:grid;margin-bottom:10px}.converter-grid label span{font-size:12px;color:var(--muted)}.converter-grid textarea{width:100%;min-height:300px;resize:vertical;border:1px solid #abc1bc;border-radius:14px;padding:18px;font:18px/1.7 var(--sans);color:var(--ink)}.converter-grid textarea:focus{outline:3px solid rgba(243,167,46,.3);border-color:var(--orange)}.swap-button{width:48px;height:48px;border:0;border-radius:50%;background:var(--orange);color:var(--green-dark);font-size:25px;cursor:pointer}.tool-actions{display:flex;align-items:center;gap:12px;margin-top:22px}.tool-actions #converter-status{color:var(--green);font-weight:750;font-size:13px}.tool-note{margin-top:28px}.tool-note strong{display:block}.converter-shell .btn{cursor:pointer}
+.tool-hero .display em{color:var(--orange);font-weight:400}.converter-section{background:var(--cream)}.converter-shell{padding:38px;background:#fff;border:1px solid var(--line);border-radius:26px;box-shadow:var(--shadow)}.mode-tabs{display:flex;flex-wrap:wrap;width:max-content;max-width:100%;padding:5px;background:var(--mint);border-radius:999px;margin-bottom:30px}.mode-tabs button{border:0;background:transparent;padding:11px 19px;border-radius:999px;font-weight:800;color:var(--green-dark);cursor:pointer}.mode-tabs button.active{background:var(--green);color:#fff}.converter-grid{display:grid;grid-template-columns:1fr 54px 1fr;gap:18px;align-items:center}.converter-grid label{display:grid;margin-bottom:10px}.converter-grid label span{font-size:12px;color:var(--muted)}.converter-grid textarea{width:100%;min-height:300px;resize:vertical;border:1px solid #abc1bc;border-radius:14px;padding:18px;font:18px/1.7 var(--sans);color:var(--ink)}.converter-grid textarea:focus{outline:3px solid rgba(243,167,46,.3);border-color:var(--orange)}.swap-button{width:54px;height:54px;border:0;border-radius:50%;background:var(--orange);color:var(--green-dark);font-size:23px;cursor:pointer;display:grid;place-items:center;line-height:1}.swap-button span{font:700 9px/1 var(--sans);text-transform:uppercase;letter-spacing:.06em}.tool-actions{display:flex;align-items:center;gap:12px;margin-top:22px}.copy-result span{font-size:17px}.tool-actions #converter-status{color:var(--green);font-weight:750;font-size:13px}.tool-note{margin-top:28px}.tool-note strong{display:block}.converter-shell .btn{cursor:pointer}
 @media(max-width:760px){.converter-shell{padding:22px}.converter-grid{grid-template-columns:1fr}.swap-button{transform:rotate(90deg);justify-self:center}.converter-grid textarea{min-height:220px}.tool-actions{flex-wrap:wrap}}
 </style>
