@@ -30,6 +30,16 @@ collections:
         fields:
           - {label: Organization name, name: organizationName, widget: string}
           - {label: Tagline, name: tagline, widget: string}
+          - label: Website color theme
+            name: theme
+            widget: select
+            default: hope-green
+            hint: Changes the public website colors after publishing and deployment.
+            options:
+              - {label: Naya Aasha Green, value: hope-green}
+              - {label: Himalayan Blue, value: himalayan-blue}
+              - {label: Warm Sunrise, value: warm-sunrise}
+              - {label: Classic Slate, value: classic-slate}
           - {label: Registration number/status, name: registrationNumber, widget: string}
           - {label: Public email, name: email, widget: string}
           - {label: Phone, name: phone, widget: string}
@@ -162,6 +172,7 @@ collections:
         options: [{label: Education/book, value: book},{label: Care/heart, value: care},{label: Family/home, value: home},{label: Health, value: health},{label: General/heart, value: heart}]
       - {label: Display order, name: order, widget: number, value_type: int, min: 1}
       - {label: Show on homepage, name: featured, widget: boolean, default: true}
+      - {label: Justify full description paragraphs, name: justifyText, widget: boolean, default: false, required: false, hint: Aligns paragraph text evenly on both left and right edges.}
       - {label: Types of support, name: supportItems, widget: list, field: {label: Item, name: item, widget: string}}
       - {label: Full program description, name: body, widget: markdown}
 
@@ -183,6 +194,7 @@ collections:
       - {label: Feature on homepage, name: featured, widget: boolean, default: false}
       - {label: Person/display name, name: personName, widget: string, required: false, hint: Use a changed name when privacy requires it.}
       - {label: General location, name: location, widget: string, required: false, hint: Avoid precise locations when they could identify a person at risk.}
+      - {label: Justify story paragraphs, name: justifyText, widget: boolean, default: false, required: false, hint: Aligns paragraph text evenly on both left and right edges.}
       - {label: Story, name: body, widget: markdown}
 
   - name: updates
@@ -201,6 +213,7 @@ collections:
       - {label: Date, name: date, widget: datetime, format: YYYY-MM-DD, date_format: YYYY-MM-DD, time_format: false}
       - {label: Category, name: category, widget: select, options: [Organization update, Program update, Event, Notice, Opportunity]}
       - {label: Cover image, name: image, widget: image, required: false}
+      - {label: Justify article paragraphs, name: justifyText, widget: boolean, default: false, required: false, hint: Aligns paragraph text evenly on both left and right edges.}
       - {label: Full update, name: body, widget: markdown}
 
   - name: impact_metrics
@@ -263,4 +276,5 @@ collections:
         summary: 'Page {{fields.image}}'
         field: {label: Page image, name: image, widget: image}
         hint: Add as many JPG, JPEG, PNG, or WebP page images as needed. Use Add below for each page and keep them in page order.
+      - {label: Justify resource/notes paragraphs, name: justifyText, widget: boolean, default: false, required: false, hint: Applies justified alignment when written resource notes are displayed.}
       - {label: Notes, name: body, widget: markdown, required: false}
