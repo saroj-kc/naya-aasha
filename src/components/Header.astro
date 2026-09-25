@@ -8,7 +8,6 @@ const nav=[['About','/about/'],['Programs','/programs/'],['Impact','/impact/'],[
   <div class="nav-shell wrap">
     <a class="brand" href="/" aria-label="Naya Aasha home">
       <img class="brand-mark" src="/images/naya-aasha-profile-logo.png" alt="" width="1600" height="1600" />
-      <img class="nepal-map-mark" src="/images/nepal-map-mark.svg" alt="" width="240" height="110" aria-hidden="true" />
       <span><strong>{site.organizationName}</strong><small>{site.tagline}</small></span>
     </a>
     <button class="menu-btn" aria-expanded="false" aria-controls="primary-nav"><span></span><span></span><span></span><b class="sr-only">Menu</b></button>
@@ -85,21 +84,14 @@ let toolbarChecks=0;const toolbarTimer=setInterval(()=>{hideGoogleToolbar();if(+
 </script>
 <script is:inline async src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 <style>
-.nepal-map-mark{width:110px;height:52px;object-fit:contain;flex:0 0 auto;margin-left:-3px}.converter-link{display:flex;align-items:center;gap:5px;color:var(--green-dark);font-size:11px;font-weight:800;white-space:nowrap}.converter-link span{display:grid;place-items:center;width:31px;height:31px;border-radius:50%;background:var(--orange-soft);color:#8a5700;font-size:13px}.converter-link:hover{color:var(--green)}
-.site-header nav{gap:20px}.language-switcher{display:flex;align-items:center;border:1px solid var(--line);border-radius:999px;background:#fff;white-space:nowrap}
+.converter-link{display:flex;align-items:center;gap:5px;color:var(--green-dark);font-size:11px;font-weight:800;white-space:nowrap}.converter-link span{display:grid;place-items:center;width:31px;height:31px;border-radius:50%;background:var(--orange-soft);color:#8a5700;font-size:13px}.converter-link:hover{color:var(--green)}
+.language-switcher{display:flex;align-items:center;border:1px solid var(--line);border-radius:999px;background:#fff;white-space:nowrap}
 .language-switcher select{max-width:108px;border:0;background:transparent;color:var(--green-dark);font:inherit;font-size:11px;font-weight:800;padding:8px 25px 8px 10px;cursor:pointer;border-radius:999px}
 .language-switcher select:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
 .translation-engine{position:absolute!important;width:1px!important;height:1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important}
 :global(.goog-te-banner-frame.skiptranslate),:global(iframe.goog-te-banner-frame),:global(iframe.skiptranslate),:global(iframe.VIpgJd-ZVi9od-ORHb-OEVmcd),:global(.goog-te-gadget-icon){display:none!important;height:0!important;visibility:hidden!important}
 :global(html){margin-top:0!important}
 :global(body){top:0!important;margin-top:0!important}
-@media(max-width:900px){.nepal-map-mark{width:76px;height:36px}.converter-link{align-self:flex-start}.language-switcher{align-self:flex-start;margin:14px 0}}
+@media(max-width:900px){.converter-link{align-self:flex-start}.language-switcher{align-self:flex-start;margin:14px 0}}
 
-@media(min-width:901px) and (max-width:1120px){
-  .site-header nav{display:none;position:absolute;top:88px;left:0;right:0;background:#fff;padding:20px;box-shadow:var(--shadow);flex-direction:column;align-items:stretch;gap:0}
-  .site-header nav.open{display:flex}.site-header nav>a:not(.btn){padding:14px;border-bottom:1px solid var(--line)}
-  .menu-btn{display:grid;gap:5px;padding:12px}.menu-btn span{display:block;width:25px;height:2px;background:var(--ink)}
-  .converter-link,.language-switcher{align-self:flex-start}.language-switcher{margin:14px 0}
-}
-@media(max-width:560px){.brand{gap:6px}.brand-mark{width:34px;height:34px}.nepal-map-mark{width:60px;height:29px}.brand strong{font-size:16px}.brand small{font-size:8px}}
 </style>
