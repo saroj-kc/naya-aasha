@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 110" role="img" aria-labelledby="title desc">
+<!-- Nepal silhouette derived from Natural Earth public-domain geographic data. -->
+<title id="title">Map of Nepal</title><desc id="desc">A decorative silhouette of Nepal in the Naya Aasha colors.</desc>
+<path d="M 227.3 64.9 L 225.2 74.4 L 228.7 88.4 L 225.6 97.1 L 203.1 97.4 L 170.7 92.3 L 149.8 90.2 L 134.2 79.0 L 97.2 76.2 L 62.0 63.8 L 36.5 53.0 L 10.4 44.7 L 20.9 24.1 L 38.0 14.2 L 49.2 8.9 L 70.8 15.7 L 98.1 30.0 L 113.3 33.2 L 122.3 43.7 L 143.3 48.1 L 165.2 57.7 L 195.8 62.8 L 227.3 64.9 Z" fill="#167761" stroke="#0c4d45" stroke-width="2.5" stroke-linejoin="round"/>
+<circle cx="151" cy="63" r="8" fill="#f3a72e" stroke="#fff" stroke-width="3"/>
+</svg>

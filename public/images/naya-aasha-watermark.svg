@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400">
+<!-- Nepal silhouette derived from Natural Earth public-domain geographic data. -->
+<g fill="none" stroke="#167761" stroke-width="2" opacity=".075">
+  <circle cx="500" cy="80" r="34"/><path d="M500 28v-18M500 150v-18M448 80h-18M570 80h-18M463 43l-13-13M550 130l-13-13M537 43l13-13M450 130l13-13"/>
+</g>
+<path d="M 227.3 64.9 L 225.2 74.4 L 228.7 88.4 L 225.6 97.1 L 203.1 97.4 L 170.7 92.3 L 149.8 90.2 L 134.2 79.0 L 97.2 76.2 L 62.0 63.8 L 36.5 53.0 L 10.4 44.7 L 20.9 24.1 L 38.0 14.2 L 49.2 8.9 L 70.8 15.7 L 98.1 30.0 L 113.3 33.2 L 122.3 43.7 L 143.3 48.1 L 165.2 57.7 L 195.8 62.8 L 227.3 64.9 Z" transform="translate(170 92) scale(1.12)" fill="#167761" opacity=".055"/>
+<path d="M104 276c30-20 58-16 80 10 18-29 47-35 79-17-17 43-45 67-80 72-35-7-61-28-79-65Z" fill="#f3a72e" opacity=".045"/>
+<text x="320" y="362" text-anchor="middle" font-family="Georgia,serif" font-size="30" font-weight="700" letter-spacing="3" fill="#0c4d45" opacity=".06">NAYA AASHA · NEW HOPE</text>
+</svg>
