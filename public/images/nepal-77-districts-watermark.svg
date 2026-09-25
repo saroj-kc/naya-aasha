@@ -4,9 +4,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 1086.36 543.89" style="enable-background:new 0 0 1086.36 543.89;" xml:space="preserve">
 <style type="text/css">
 	.st0{fill:#d7eae2;stroke:#0c4d45;stroke-width:2;stroke-miterlimit:10;}
-	.st1{fill:#d7eae2;stroke:#167761;stroke-width:1.2;stroke-miterlimit:10;}
-	.st2{fill:#f8e5b8;stroke:#167761;stroke-width:1.2;stroke-miterlimit:10;}
-	.st3{fill:#bcdacf;stroke:#167761;stroke-width:1.2;stroke-miterlimit:10;}
+	.st1{fill:#d7eae2;stroke:#315f58;stroke-width:2.2;stroke-miterlimit:10;}
+	.st2{fill:#f8e5b8;stroke:#315f58;stroke-width:2.2;stroke-miterlimit:10;}
+	.st3{fill:#bcdacf;stroke:#315f58;stroke-width:2.2;stroke-miterlimit:10;}
 	.st4{fill:#0c4d45;stroke:#ffffff;stroke-width:0.4;stroke-miterlimit:10;}
 	.st5{font-family:'Montserrat-ExtraBold';}
 	.st6{font-size:17px;}
@@ -411,7 +411,7 @@
 <switch><text transform="matrix(1 0 0 1 354.387 69.2549)" class="st4 st5 st6" id="trsvg9-ne" systemLanguage="ne"><tspan id="trsvg2-ne">कर्णाली प्रदेश</tspan></text><text transform="matrix(1 0 0 1 354.387 69.2549)" class="st4 st5 st6" id="trsvg9"><tspan id="trsvg2">Karnali</tspan></text></switch>
 <switch><text transform="matrix(1 0 0 1 594.452 202.3052)" class="st4 st5 st6" id="trsvg10-ne" systemLanguage="ne"><tspan id="trsvg3-ne">गण्डकी प्रदेश</tspan></text><text transform="matrix(1 0 0 1 594.452 202.3052)" class="st4 st5 st6" id="trsvg10"><tspan id="trsvg3">Gandaki</tspan></text></switch>
 <switch><text transform="matrix(1 0 0 1 747.0422 275.0079)" class="st4 st5 st6" id="trsvg11-ne" systemLanguage="ne"><tspan id="trsvg4-ne">बागमती प्रदेश</tspan></text><text transform="matrix(1 0 0 1 747.0422 275.0079)" class="st4 st5 st6" id="trsvg11"><tspan id="trsvg4">Bagmati</tspan></text></switch>
-<switch><text transform="matrix(1 0 0 1 919.7632 314.9897)" class="st4 st5 st6" id="trsvg12-ne" systemLanguage="ne"><tspan id="trsvg5-ne">कोशी प्रदेश</tspan></text><text transform="matrix(1 0 0 1 919.7632 314.9897)" class="st4 st5 st6" id="trsvg12"><tspan id="trsvg5">Province No. 1</tspan></text></switch>
-<switch><text transform="matrix(1 0 0 1 709.2206 522.8611)" class="st4 st5 st6" id="trsvg13-ne" systemLanguage="ne"><tspan id="trsvg6-ne">मधेश प्रदेश</tspan></text><text transform="matrix(1 0 0 1 709.2206 522.8611)" class="st4 st5 st6" id="trsvg13"><tspan id="trsvg6">Province No. 2</tspan></text></switch>
-<switch><text transform="matrix(1 0 0 1 249.2809 383.479)" class="st4 st5 st6" id="trsvg14-ne" systemLanguage="ne"><tspan id="trsvg7-ne">लुम्बिनी प्रदेश</tspan></text><text transform="matrix(1 0 0 1 249.2809 383.479)" class="st4 st5 st6" id="trsvg14"><tspan id="trsvg7">Province No. 5</tspan></text></switch>
+<switch><text transform="matrix(1 0 0 1 919.7632 314.9897)" class="st4 st5 st6" id="trsvg12-ne" systemLanguage="ne"><tspan id="trsvg5-ne">कोशी प्रदेश</tspan></text><text transform="matrix(1 0 0 1 919.7632 314.9897)" class="st4 st5 st6" id="trsvg12"><tspan id="trsvg5">Koshi</tspan></text></switch>
+<switch><text transform="matrix(1 0 0 1 709.2206 522.8611)" class="st4 st5 st6" id="trsvg13-ne" systemLanguage="ne"><tspan id="trsvg6-ne">मधेश प्रदेश</tspan></text><text transform="matrix(1 0 0 1 709.2206 522.8611)" class="st4 st5 st6" id="trsvg13"><tspan id="trsvg6">Madhesh</tspan></text></switch>
+<switch><text transform="matrix(1 0 0 1 249.2809 383.479)" class="st4 st5 st6" id="trsvg14-ne" systemLanguage="ne"><tspan id="trsvg7-ne">लुम्बिनी प्रदेश</tspan></text><text transform="matrix(1 0 0 1 249.2809 383.479)" class="st4 st5 st6" id="trsvg14"><tspan id="trsvg7">Lumbini</tspan></text></switch>
 </svg>
