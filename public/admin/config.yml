@@ -203,6 +203,27 @@ collections:
       - {label: Cover image, name: image, widget: image, required: false}
       - {label: Full update, name: body, widget: markdown}
 
+  - name: impact_metrics
+    label: Public impact data
+    label_singular: Reporting period
+    folder: src/content/impact-metrics
+    create: true
+    extension: md
+    format: frontmatter
+    slug: '{{date}}-{{slug}}'
+    summary: '{{title}} — {{date}}'
+    fields:
+      - {label: Keep as draft, name: draft, widget: boolean, default: true, hint: Publish only after every number has been checked against internal records.}
+      - {label: Reporting title, name: title, widget: string, hint: Example: July–September 2026 impact update}
+      - {label: Reporting date, name: date, widget: datetime, format: YYYY-MM-DD, date_format: YYYY-MM-DD, time_format: false}
+      - {label: Short graph label, name: periodLabel, widget: string, required: false, hint: Example: Q3 2026. Keep this short for the graph.}
+      - {label: New unique volunteers, name: volunteers, widget: number, value_type: int, min: 0, default: 0, hint: Count only newly verified volunteers not included in an earlier published period.}
+      - {label: New partner organizations, name: partners, widget: number, value_type: int, min: 0, default: 0, hint: Count only new verified partners not included earlier.}
+      - {label: New fundraisers started, name: fundraisers, widget: number, value_type: int, min: 0, default: 0}
+      - {label: New unique program supporters, name: programSupporters, widget: number, value_type: int, min: 0, default: 0, hint: Do not count the same supporter again in another period.}
+      - {label: New unique families supported, name: familiesSupported, widget: number, value_type: int, min: 0, default: 0, hint: Count a family only once across all published periods. Do not publish identifying information.}
+      - {label: Internal/public notes, name: body, widget: markdown, required: false, hint: Explain the source or scope of the figures without naming beneficiaries.}
+
   - name: team
     label: Team & leadership
     label_singular: Team member
