@@ -1,10 +1,14 @@
 ---
-import Header from '../components/Header.astro'; import Footer from '../components/Footer.astro'; import CookieConsent from '../components/CookieConsent.astro'; import ImpactDashboard from '../components/ImpactDashboard.astro'; import '../styles/global.css';
+import Header from '../components/Header.astro'; import Footer from '../components/Footer.astro'; import CookieConsent from '../components/CookieConsent.astro'; import ImpactDashboard from '../components/ImpactDashboard.astro'; import '../styles/global.css'; import site from '../content/pages/site.json';
 const {title='Naya Aasha',description='New hope through education, care, and community support.',image='/images/social-card.svg'}=Astro.props;
 const canonical=new URL(Astro.url.pathname,Astro.site);
+const activeTheme=site.theme||'hope-green';
+const themeColors={
+  'hope-green':'#103b38','himalayan-blue':'#174b67','warm-sunrise':'#71341f','classic-slate':'#102f44'
+};
 ---
-<!doctype html><html lang="en"><head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width"><meta name="theme-color" content="#103b38">
+<!doctype html><html lang="en" data-theme={activeTheme}><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width"><meta name="theme-color" content={themeColors[activeTheme]||themeColors['hope-green']}>
 <title>{title}</title><meta name="description" content={description}><link rel="canonical" href={canonical}>
 <meta property="og:type" content="website"><meta property="og:title" content={title}><meta property="og:description" content={description}><meta property="og:url" content={canonical}><meta property="og:image" content={new URL(image,Astro.site)}>
 <meta name="twitter:card" content="summary_large_image"><link rel="icon" href="/images/favicon.svg" type="image/svg+xml">
