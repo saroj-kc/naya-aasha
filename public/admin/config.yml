@@ -214,9 +214,9 @@ collections:
     summary: '{{title}} — {{date}}'
     fields:
       - {label: Keep as draft, name: draft, widget: boolean, default: true, hint: Publish only after every number has been checked against internal records.}
-      - {label: Reporting title, name: title, widget: string, hint: Example: July–September 2026 impact update}
+      - {label: Reporting title, name: title, widget: string, hint: 'Example: July–September 2026 impact update'}
       - {label: Reporting date, name: date, widget: datetime, format: YYYY-MM-DD, date_format: YYYY-MM-DD, time_format: false}
-      - {label: Short graph label, name: periodLabel, widget: string, required: false, hint: Example: Q3 2026. Keep this short for the graph.}
+      - {label: Short graph label, name: periodLabel, widget: string, required: false, hint: 'Example: Q3 2026. Keep this short for the graph.'}
       - {label: New unique volunteers, name: volunteers, widget: number, value_type: int, min: 0, default: 0, hint: Count only newly verified volunteers not included in an earlier published period.}
       - {label: New partner organizations, name: partners, widget: number, value_type: int, min: 0, default: 0, hint: Count only new verified partners not included earlier.}
       - {label: New fundraisers started, name: fundraisers, widget: number, value_type: int, min: 0, default: 0}
