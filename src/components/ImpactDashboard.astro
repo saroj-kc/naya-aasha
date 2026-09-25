@@ -1,0 +1,58 @@
+---
+import {getCollection} from 'astro:content';
+
+const programs=await getCollection('programs',({data})=>!data.draft);
+const reports=(await getCollection('impactMetrics',({data})=>!data.draft)).sort((a,b)=>+a.data.date-+b.data.date);
+const sum=(field:'volunteers'|'partners'|'fundraisers'|'programSupporters'|'familiesSupported')=>reports.reduce((total,item)=>total+item.data[field],0);
+const totals={
+  programs:programs.length,
+  volunteers:sum('volunteers'),
+  partners:sum('partners'),
+  fundraisers:sum('fundraisers'),
+  supporters:sum('programSupporters'),
+  families:sum('familiesSupported')
+};
+const hasReports=reports.length>0;
+const number=new Intl.NumberFormat('en-NP');
+let cumulativeFamilies=0;
+const timeline=reports.map(item=>{
+  cumulativeFamilies+=item.data.familiesSupported;
+  return {label:item.data.periodLabel||new Intl.DateTimeFormat('en-NP',{month:'short',year:'numeric'}).format(item.data.date),value:cumulativeFamilies};
+}).slice(-8);
+const maxFamilies=Math.max(1,...timeline.map(item=>item.value));
+const lastUpdated=reports.at(-1)?.data.date;
+const metrics=[
+  {value:totals.programs,label:'Programs launched'},
+  {value:totals.volunteers,label:'Volunteers'},
+  {value:totals.partners,label:'Partners'},
+  {value:totals.fundraisers,label:'Fundraisers started'},
+  {value:totals.supporters,label:'Program supporters'},
+  {value:totals.families,label:'Families supported'}
+];
+---
+<section class="impact-dashboard" aria-labelledby="public-impact-title">
+  <div class="wrap">
+    <div class="dashboard-heading">
+      <div><p class="eyebrow">Public impact snapshot</p><h2 id="public-impact-title">Participation and impact, openly reported.</h2></div>
+      <p>Published figures update automatically whenever a verified reporting period is added through the website CMS.</p>
+    </div>
+
+    <div class="metric-grid">
+      {metrics.map((metric,index)=><div class="metric-card"><strong>{index===0||hasReports?number.format(metric.value):'—'}</strong><span>{metric.label}</span></div>)}
+    </div>
+
+    {timeline.length>0?<div class="chart-panel">
+      <div class="chart-copy"><p class="meta">Cumulative progress</p><h3>Families supported over time</h3><p>Each bar includes verified new families from that reporting period and all earlier published periods.</p></div>
+      <div class="bar-chart" role="img" aria-label={`Cumulative families supported. Latest verified total: ${totals.families}.`}>
+        {timeline.map(item=><div class="bar-column"><span class="bar-value">{number.format(item.value)}</span><div class="bar-track"><span class="bar" style={`height:${Math.max(5,(item.value/maxFamilies)*100)}%`}></span></div><span class="bar-label">{item.label}</span></div>)}
+      </div>
+      <table class="sr-only"><caption>Cumulative families supported by reporting period</caption><thead><tr><th>Period</th><th>Families</th></tr></thead><tbody>{timeline.map(item=><tr><td>{item.label}</td><td>{item.value}</td></tr>)}</tbody></table>
+    </div>:<div class="reporting-note"><strong>Impact reporting is being prepared.</strong><span>Verified participation and family-support figures will appear here after the first reporting period is published.</span></div>}
+
+    <div class="dashboard-foot"><span>{lastUpdated?`Latest published reporting period: ${new Intl.DateTimeFormat('en-NP',{day:'numeric',month:'long',year:'numeric'}).format(lastUpdated)}`:'No impact reporting period has been published yet.'}</span><a href="/transparency/">View transparency information →</a></div>
+  </div>
+</section>
+
+<style>
+.impact-dashboard{padding:78px 0;background:#eef7f3;border-top:1px solid var(--line)}.dashboard-heading{display:grid;grid-template-columns:1.25fr .75fr;align-items:end;gap:70px;margin-bottom:34px}.dashboard-heading .eyebrow{margin-bottom:9px}.dashboard-heading h2{font-family:var(--serif);font-size:clamp(30px,4vw,48px);line-height:1.08;letter-spacing:-.03em;margin:0;max-width:720px}.dashboard-heading>p{color:var(--muted);font-size:14px;margin:0}.metric-grid{display:grid;grid-template-columns:repeat(6,1fr);border:1px solid #cfe1da;border-radius:18px;overflow:hidden;background:#fff}.metric-card{min-width:0;padding:24px 16px;text-align:center;border-right:1px solid var(--line)}.metric-card:last-child{border-right:0}.metric-card strong{display:block;font-family:var(--serif);font-size:clamp(29px,3vw,42px);line-height:1;color:var(--green-dark)}.metric-card span{display:block;color:var(--muted);font-size:12px;line-height:1.35;margin-top:9px}.chart-panel{display:grid;grid-template-columns:280px 1fr;gap:45px;align-items:end;margin-top:24px;padding:28px;border-radius:18px;background:var(--green-dark);color:#fff}.chart-copy .meta{color:#acd4c8}.chart-copy h3{font-family:var(--serif);font-size:28px;line-height:1.15;margin:7px 0 10px}.chart-copy>p:last-child{color:#c8ddd7;font-size:13px;margin:0}.bar-chart{height:190px;display:flex;align-items:stretch;gap:12px;padding-top:22px}.bar-column{min-width:0;flex:1;display:grid;grid-template-rows:18px 1fr 34px;gap:5px;text-align:center}.bar-value{font-size:11px;font-weight:800;color:#fff}.bar-track{height:100%;display:flex;align-items:flex-end;border-bottom:1px solid #668b84;background:rgba(255,255,255,.035);border-radius:5px 5px 0 0;overflow:hidden}.bar{display:block;width:100%;min-height:5px;background:linear-gradient(#ffca6e,var(--orange));border-radius:5px 5px 0 0}.bar-label{font-size:10px;line-height:1.2;color:#c8ddd7;overflow-wrap:anywhere}.reporting-note{display:flex;align-items:center;gap:12px;margin-top:22px;padding:18px 20px;border:1px dashed #9dbdb4;border-radius:14px;color:var(--muted);font-size:13px}.reporting-note strong{color:var(--ink)}.dashboard-foot{display:flex;justify-content:space-between;gap:20px;margin-top:18px;color:var(--muted);font-size:12px}.dashboard-foot a{color:var(--green);font-weight:800}@media(max-width:980px){.metric-grid{grid-template-columns:repeat(3,1fr)}.metric-card:nth-child(3){border-right:0}.metric-card:nth-child(-n+3){border-bottom:1px solid var(--line)}.chart-panel{grid-template-columns:1fr}.bar-chart{height:170px}}@media(max-width:650px){.impact-dashboard{padding:58px 0}.dashboard-heading{grid-template-columns:1fr;gap:15px}.metric-grid{grid-template-columns:repeat(2,1fr)}.metric-card{padding:20px 10px}.metric-card:nth-child(odd){border-right:1px solid var(--line)}.metric-card:nth-child(even){border-right:0}.metric-card:nth-child(-n+4){border-bottom:1px solid var(--line)}.chart-panel{padding:22px 14px;gap:20px}.bar-chart{gap:5px;height:165px;overflow-x:auto}.bar-column{min-width:38px}.bar-label{font-size:9px}.reporting-note,.dashboard-foot{align-items:flex-start;flex-direction:column}}
+</style>
