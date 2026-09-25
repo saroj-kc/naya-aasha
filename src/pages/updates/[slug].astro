@@ -29,7 +29,7 @@ const canonical=new URL(Astro.url.pathname,Astro.site);
     {update.data.image&&<div class="hero-image"><img src={update.data.image} alt=""/></div>}
 
     <div class="article-layout">
-      <div class="article-prose"><Content/></div>
+      <div class:list={["article-prose",update.data.justifyText&&"justify-paragraphs"]}><Content/></div>
       <footer class="article-footer">
         <a class="btn btn-secondary" href="/updates/">← All news & updates</a>
         <p>Published by Naya Aasha · New Hope</p>
