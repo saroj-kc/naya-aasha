@@ -1,5 +1,5 @@
 ---
-draft: true
+draft: false
 title: "Administrative Map of Nepal "
 date: 2026-09-25
 type: Other
