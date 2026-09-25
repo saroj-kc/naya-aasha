@@ -1,1 +1,12 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#0c4d45"><title>Website admin | Naya Aasha</title><link rel="icon" href="/images/favicon.svg"><style>body{margin:0;background:#f7faf8;color:#123633;font-family:Inter,system-ui,sans-serif}.loading{text-align:center;margin:12vh auto;max-width:600px;padding:30px}.mark{display:grid;place-items:center;margin:auto;width:55px;height:55px;border-radius:50%;background:#f3a72e;font:700 28px Georgia}.loading p{color:#5d716e}</style></head><body><div class="loading" id="loading"><span class="mark">न</span><h1>Opening Naya Aasha website admin…</h1><p>Authorized team members can manage the whole website, programs, stories, updates, team, reports, and uploaded media.</p><p><a href="/">Return to website</a></p></div><script src="https://unpkg.com/decap-cms@^3.8.0/dist/decap-cms.js"></script><script>addEventListener('load',()=>document.querySelector('#loading')?.remove())</script></body></html>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#0c4d45"><title>Website admin | Naya Aasha</title><link rel="icon" href="/images/favicon.svg"><style>body{margin:0;background:#f7faf8;color:#123633;font-family:Inter,system-ui,sans-serif}.loading{text-align:center;margin:12vh auto;max-width:600px;padding:30px}.mark{display:grid;place-items:center;margin:auto;width:55px;height:55px;border-radius:50%;background:#f3a72e;font:700 28px Georgia}.loading p{color:#5d716e}</style></head><body><div class="loading" id="loading"><span class="mark">न</span><h1>Opening Naya Aasha website admin…</h1><p>Authorized team members can manage the whole website, programs, stories, updates, team, reports, and uploaded media.</p><p><a href="/">Return to website</a></p></div><script src="https://unpkg.com/decap-cms@^3.8.0/dist/decap-cms.js"></script><script>
+CMS.registerEditorComponent({
+  id:'justified-paragraph',
+  label:'Justified paragraph',
+  fields:[{name:'text',label:'Paragraph text',widget:'text'}],
+  pattern:/^<p class="cms-justify">([\s\S]*?)<\/p>$/,
+  fromBlock:match=>({text:match[1]}),
+  toBlock:data=>`<p class="cms-justify">${data.text||''}</p>`,
+  toPreview:data=>`<p style="text-align:justify;text-justify:inter-word">${data.text||''}</p>`
+});
+addEventListener('load',()=>document.querySelector('#loading')?.remove());
+</script></body></html>
